@@ -1,0 +1,42 @@
+[p LITE_MODE AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 12F675 ]
+[d frameptr 6 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.43\sources\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.43\sources\pic\eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"42 C:\projects\poli\arquitectura-de-computadores\Taller3.X\main.c
+[v _main main `(v  1 e 1 0 ]
+"10 C:\projects\poli\arquitectura-de-computadores\Taller3.X\spradd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"42 C:\projects\poli\arquitectura-de-computadores\Taller3.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"50
+[v main@b b `f  1 a 4 32 ]
+"49
+[v main@a a `f  1 a 4 28 ]
+"52
+[v main@result result `f  1 a 4 24 ]
+"61
+} 0
+"10 C:\projects\poli\arquitectura-de-computadores\Taller3.X\spradd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+{
+"17
+[v ___fladd@grs grs `uc  1 a 1 23 ]
+"15
+[v ___fladd@bexp bexp `uc  1 a 1 22 ]
+"16
+[v ___fladd@aexp aexp `uc  1 a 1 21 ]
+"13
+[v ___fladd@signs signs `uc  1 a 1 20 ]
+"10
+[v ___fladd@b b `d  1 p 4 0 ]
+[v ___fladd@a a `d  1 p 4 4 ]
+"237
+} 0

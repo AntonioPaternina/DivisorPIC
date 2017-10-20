@@ -1,0 +1,156 @@
+<html>
+<head>
+	<script>
+		function calculate() {
+			var userInput = document.getElementById("operand").value;
+			convertDecimalToBinary(userInput);
+		}
+
+		function convertDecimalToBinary(userInput) {		
+			var result = parseDecimal(userInput).toString(2);
+			var resultOutput = document.getElementById("result");
+			if (!isNaN(result)) {
+				resultOutput.value = result;
+			} else {
+				alert("invalid input");
+			}
+			return result;
+		}
+
+		function parseDecimal(raw) {
+			var input;
+			if (typeof raw === 'string') {
+				input = raw.replace(",", ".");	
+			} else {
+				input = raw;
+			}
+			var number = parseFloat(input);
+			return number;
+		}
+
+		function calculateBinaryToDecimal() {
+			var userInput = document.getElementById("binaryToDecimalInput").value;
+			convertBinaryToDecimal(userInput);
+		}
+
+		function convertBinaryToDecimal(userInput) {		
+			var result = parseBinary(userInput);
+			var resultOutput = document.getElementById("resultBinaryToDecimalResult");
+			if (!isNaN(result)) {
+				resultOutput.value = result;
+			} else {
+				alert("invalid input");
+			} 
+
+			return result;
+		}
+
+		function parseBinary(raw) {
+			var userInput = raw.replace(",", ".");
+			var numberParts = userInput.split(".");
+			var integerPart = parseInt(numberParts[0], 2);
+			var fractionalPartArray;
+			if (numberParts[1]) {
+				fractionalPartArray = numberParts[1].split("");
+			} else {
+				fractionalPartArray = 0;
+			}
+			var runningCount = 0;
+			for (var i = 0; i < fractionalPartArray.length; i++) {
+				var bit = fractionalPartArray[i];
+				if (bit === '1') {
+					runningCount += Math.pow(2, (-i - 1));
+				}
+			}
+
+			return integerPart + runningCount;
+		}
+
+		function calculateIEEE754Addition() {
+			var op1mantisa = document.getElementById("floatAdditionInput1Mantisa").value;
+			var op1exponent = document.getElementById("floatAdditionInput1Exponent").value;
+			var op2mantisa = document.getElementById("floatAdditionInput2Mantisa").value;
+			var op2exponent = document.getElementById("floatAdditionInput2Exponent").value;
+
+			var result = addFloats2(op1mantisa, op1exponent, op2mantisa, op2exponent);
+
+			var outputDecimal = document.getElementById("resultIEEEAdditionDecimal");
+			var outputBinary = document.getElementById("resultIEEEAdditionBinary");
+
+			outputDecimal.value = result;
+			outputBinary.value = convertDecimalToBinary(result);
+		}
+
+		function addFloats(op1Mantisa, op1Exp, op2Mantisa, op2Exp) {
+			var op1M = convertBinaryToDecimal(op1Mantisa);
+			var op1E = convertBinaryToDecimal(op1Exp);
+			var op2M = convertBinaryToDecimal(op2Mantisa);
+			var op2E = convertBinaryToDecimal(op2Exp);
+
+			var result = op1M * Math.pow(2, op1E) + op2M * Math.pow(2, op2Exp); 
+			return result;
+		}
+
+		function addFloats2(op1Mantisa, op1Exp, op2Mantisa, op2Exp) {
+			var exponentDifference = convertDecimalToBinary(convertBinaryToDecimal(op1Exp) - convertBinaryToDecimal(op2Exp));
+
+		}
+
+		function normalize(number, exponent) {
+			var indexOfPoint = strippedNumber.indexOf('.');
+			var indexOfMSB = number.indexOf('1');
+			
+			var newNumber;
+			var newExponent;
+			if (indexOfMSB == (indexOfPoint - 1)) {
+				newNumber = number;
+				newExponent = exponent;
+			} else {
+				var offset = (indexOfPoint - indexOfMSB - 1);
+				var exponentValue = parseInt(exponent, 2);
+				newExponent = (exponentValue + offset).toString(2);
+				number.replace(".", "");
+				newNumber = number.charAt(0) + "." + number.substring(1, number.length);
+			}
+
+			var result = new Array();
+			result.push(newNumber);
+			result.push(newExponent);
+			return result;
+		}
+
+	</script>
+</head>
+<body>
+	<label for="operand">Enter number in base 10:</label>
+	<input id="operand" type="text" />
+	<button id="calculate" onclick="calculate()">Calculate</button>
+	<label for="result">Number in base 2:</label>
+	<input id="result" type="text" disabled="" />
+
+	<br />
+
+	<label for="binaryToDecimalInput">Enter number in base 2:</label>
+	<input id="binaryToDecimalInput" type="text" />
+	<button id="calculateBinaryToDecimalBtn" onclick="calculateBinaryToDecimal()">Calculate</button>
+	<label for="result">Number in base 10:</label>
+	<input id="resultBinaryToDecimalResult" type="text" disabled="" />
+
+	<br />
+
+	<label for="floatAdditionInput1">Enter mantisa:</label>
+	<input id="floatAdditionInput1Mantisa" type="text" />
+	<label for="floatAdditionInput1">Enter exponent:</label>
+	<input id="floatAdditionInput1Exponent" type="text" />
+	<label for="floatAdditionInput2">Enter mantisa:</label>
+	<input id="floatAdditionInput2Mantisa" type="text" />
+	<label for="floatAdditionInput2">Enter exponent:</label>
+	<input id="floatAdditionInput2Exponent" type="text" />
+	<button id="calculateBinaryToDecimalBtn" onclick="calculateIEEE754Addition()">
+		Calculate
+	</button>
+	<label for="result">Number in base 10:</label>
+	<input id="resultIEEEAdditionDecimal" type="text" disabled="" />
+	<input id="resultIEEEAdditionBinary" type="text" disabled="" />
+</body>
+</html>

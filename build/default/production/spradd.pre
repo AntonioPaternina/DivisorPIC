@@ -1,0 +1,360 @@
+
+# 1 "spradd.c"
+
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 20 "fpform.h"
+typedef union {
+int32_t i;
+double f;
+struct {
+unsigned char a, b, c, d;
+} fAsBytes;
+struct {
+int16_t wordA, wordB;
+} fAsWords;
+} SFP;
+
+typedef union {
+int16_t i;
+uint16_t n;
+struct {
+unsigned char a, b;
+} nAsBytes;
+} wordProduct;
+
+# 77
+extern double __fladd(double x, double y);
+extern double __flsub(double x, double y);
+extern double __flmul(double x, double y);
+extern double __fldiv(double x, double y);
+extern int spcmp(double x, double y);
+extern double sqrt(double x);
+
+extern unsigned int _Umul8_16(unsigned char multiplier, unsigned char multiplicand);
+
+# 9 "spradd.c"
+double
+__fladd(double b, double a) {
+
+
+unsigned char signs;
+
+# 15
+unsigned char bexp;
+unsigned char aexp;
+unsigned char grs;
+
+
+
+signs = (*(SFP *)&b).fAsBytes.d & 0x80;
+bexp = (*(SFP *)&b).fAsBytes.d << 1;
+if ((*(SFP *)&b).fAsBytes.c & 0x80) {
+bexp |= 0x1;
+}
+
+
+if (bexp) {
+
+if (bexp == 0xFF) {
+
+b = 0;
+}
+
+(*(SFP *)&b).i |= (int32_t) 1 << 23;
+
+(*(SFP *)&b).fAsBytes.d = 0;
+}
+else {
+
+b = 0;
+}
+
+aexp = (*(SFP *)&a).fAsBytes.d & 0x80;
+
+if (aexp != signs) {
+signs |= 0x40;
+}
+aexp = (*(SFP *)&a).fAsBytes.d << 1;
+if ((*(SFP *)&a).fAsBytes.c & 0x80) {
+aexp |= 0x1;
+}
+
+
+if (aexp) {
+
+if (aexp == 0xFF) {
+
+a = 0;
+}
+
+(*(SFP *)&a).i |= (int32_t) 1 << 23;
+
+(*(SFP *)&a).fAsBytes.d = 0;
+}
+else {
+
+a = 0;
+}
+
+# 75
+if (aexp < bexp) {
+
+if (signs & 0x40) {
+signs ^= 0x80;
+}
+
+grs = bexp;
+bexp = aexp;
+aexp = grs;
+grs = (*(SFP *)&b).fAsBytes.a;
+(*(SFP *)&b).fAsBytes.a = (*(SFP *)&a).fAsBytes.a;
+(*(SFP *)&a).fAsBytes.a = grs;
+grs = (*(SFP *)&b).fAsBytes.b;
+(*(SFP *)&b).fAsBytes.b = (*(SFP *)&a).fAsBytes.b;
+(*(SFP *)&a).fAsBytes.b = grs;
+grs = (*(SFP *)&b).fAsBytes.c;
+(*(SFP *)&b).fAsBytes.c = (*(SFP *)&a).fAsBytes.c;
+(*(SFP *)&a).fAsBytes.c = grs;
+grs = (*(SFP *)&b).fAsBytes.d;
+(*(SFP *)&b).fAsBytes.d = (*(SFP *)&a).fAsBytes.d;
+(*(SFP *)&a).fAsBytes.d = grs;
+}
+
+grs = 0;
+
+if ((aexp - bexp) > (23 + 2)) {
+grs = (*(SFP *)&b).i ? 1 : 0;
+(*(SFP *)&b).i = 0;
+bexp = aexp;
+}
+else {
+while (bexp < aexp) {
+
+
+if (grs & 1) {
+grs = (grs >> 1) | 0x1;
+}
+else {
+grs >>= 1;
+}
+if ((*(SFP *)&b).i & 0x1) {
+grs |= 0x80;
+}
+(*(SFP *)&b).i >>= 1;
+bexp++;
+}
+}
+
+
+if (!(signs & 0x40)) {
+
+
+if (!bexp) {
+return 0.0;
+}
+
+
+(*(SFP *)&b).i += (*(SFP *)&a).i;
+
+if ((*(SFP *)&b).i & ((int32_t) 1 << (23 + 1))) {
+if (grs & 1) {
+grs = (grs >>= 1) | 0x1;
+}
+else {
+grs >>= 1;
+}
+if ((*(SFP *)&b).i & 1) {
+grs |= 0x80;
+}
+(*(SFP *)&b).i >>= 1;
+++bexp;
+}
+
+}
+else {
+
+
+
+if ((*(SFP *)&b).i < (*(SFP *)&a).i) {
+(*(SFP *)&b).i = (*(SFP *)&a).i - (*(SFP *)&b).i - 1;
+signs ^= 0x80;
+grs = ~grs + 1;
+if (!grs) {
+++(*(SFP *)&b).i;
+}
+}
+else {
+(*(SFP *)&b).i -= (*(SFP *)&a).i;
+}
+
+
+if (!(*(SFP *)&b).i && !grs) {
+return 0.0;
+}
+
+
+while (!((*(SFP *)&b).i & ((int32_t) 1 << 23))) {
+(*(SFP *)&b).i <<= 1;
+if (grs & 0x80) {
+(*(SFP *)&b).i |= 0x1;
+}
+if (grs & 1) {
+grs = (grs << 1) | 0x1;
+}
+else {
+grs <<= 1;
+}
+if (bexp) {
+--bexp;
+}
+}
+}
+
+# 192
+aexp = 0;
+if (grs & 0x80) {
+if (grs & 0x7f) {
+aexp = 1;
+}
+else {
+if ((*(SFP *)&b).i & 1) {
+aexp = 1;
+}
+}
+}
+if (aexp) {
+++(*(SFP *)&b).i;
+if ((*(SFP *)&b).i & ((int32_t) 1 << (23 + 1))) {
+(*(SFP *)&b).i = (*(SFP *)&b).i >> 1;
+if (!(bexp == 0xFF)) {
+++bexp;
+}
+}
+}
+
+
+
+if (bexp == 0xFF || bexp == 0) {
+(*(SFP *)&b).i = 0;
+
+if (bexp == 0) {
+signs=0;
+}
+}
+
+
+
+if (bexp & 0x1) {
+(*(SFP *)&b).fAsBytes.c |= 0x80;
+}
+
+else {
+(*(SFP *)&b).fAsBytes.c &= 0x7F;
+}
+(*(SFP *)&b).fAsBytes.d = bexp >> 1;
+if (signs & 0x80) {
+(*(SFP *)&b).fAsBytes.d |= 0x80;
+}
+return b;
+}
+
+
+
+double
+__flsub(double a, double b)
+
+# 247
+{
+((*(SFP *) & a).i ^= 0x80000000;
+return __fladd(b, a);
+}
+

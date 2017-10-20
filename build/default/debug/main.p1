@@ -1,0 +1,197 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[p mainexit ]
+"1 main.c
+[v _divisionEntera `(v ~T0 @X0 1 ef3`ui`ui`**ui ]
+{
+[; ;main.c: 1: void divisionEntera(unsigned int dividendo1, unsigned int divisor1, unsigned int* resultado[]) {
+[e :U _divisionEntera ]
+[v _dividendo1 `ui ~T0 @X0 1 r1 ]
+[v _divisor1 `ui ~T0 @X0 1 r2 ]
+[v _resultado `**ui ~T0 @X0 1 r3 ]
+[f ]
+"2
+[v _denominador `ui ~T0 @X0 1 a ]
+[; ;main.c: 2: unsigned int denominador = divisor1;
+[e = _denominador _divisor1 ]
+"3
+[v _temp `ui ~T0 @X0 1 a ]
+[; ;main.c: 3: unsigned int temp = 1;
+[e = _temp -> -> 1 `i `ui ]
+"4
+[v _temp2 `ui ~T0 @X0 1 a ]
+[; ;main.c: 4: unsigned int temp2 = 0x80000000;
+[e = _temp2 -> -> -2147483648 `ul `ui ]
+"5
+[v _resultadoParteEntera `ui ~T0 @X0 1 a ]
+[; ;main.c: 5: unsigned int resultadoParteEntera = 0;
+[e = _resultadoParteEntera -> -> 0 `i `ui ]
+"6
+[v _resultadoFraccion `ui ~T0 @X0 1 a ]
+[; ;main.c: 6: unsigned int resultadoFraccion = 0;
+[e = _resultadoFraccion -> -> 0 `i `ui ]
+"7
+[v _dividendo `ui ~T0 @X0 1 a ]
+[; ;main.c: 7: unsigned int dividendo = dividendo1;
+[e = _dividendo _dividendo1 ]
+"8
+[v _divisor `ui ~T0 @X0 1 a ]
+[; ;main.c: 8: unsigned int divisor = divisor1;
+[e = _divisor _divisor1 ]
+[; ;main.c: 10: while (denominador <= dividendo) {
+"10
+[e $U 2  ]
+[e :U 3 ]
+{
+[; ;main.c: 11: denominador <<= 1;
+"11
+[e =<< _denominador -> 1 `i ]
+[; ;main.c: 12: temp <<= 1;
+"12
+[e =<< _temp -> 1 `i ]
+"13
+}
+[e :U 2 ]
+"10
+[e $ <= _denominador _dividendo 3  ]
+[e :U 4 ]
+[; ;main.c: 13: }
+[; ;main.c: 15: denominador >>= 1;
+"15
+[e =>> _denominador -> 1 `i ]
+[; ;main.c: 16: temp >>= 1;
+"16
+[e =>> _temp -> 1 `i ]
+[; ;main.c: 18: while (temp != 0) {
+"18
+[e $U 5  ]
+[e :U 6 ]
+{
+[; ;main.c: 19: if (dividendo >= denominador) {
+"19
+[e $ ! >= _dividendo _denominador 8  ]
+{
+[; ;main.c: 20: dividendo -= denominador;
+"20
+[e =- _dividendo _denominador ]
+[; ;main.c: 21: resultadoParteEntera |= temp;
+"21
+[e =| _resultadoParteEntera _temp ]
+"22
+}
+[e :U 8 ]
+[; ;main.c: 22: }
+[; ;main.c: 23: temp >>= 1;
+"23
+[e =>> _temp -> 1 `i ]
+[; ;main.c: 24: denominador >>= 1;
+"24
+[e =>> _denominador -> 1 `i ]
+"25
+}
+[e :U 5 ]
+"18
+[e $ != _temp -> -> 0 `i `ui 6  ]
+[e :U 7 ]
+[; ;main.c: 25: }
+[; ;main.c: 27: if (dividendo > 0) {
+"27
+[e $ ! > _dividendo -> -> 0 `i `ui 9  ]
+{
+[; ;main.c: 28: dividendo <<= 1;
+"28
+[e =<< _dividendo -> 1 `i ]
+"29
+[v _count `i ~T0 @X0 1 a ]
+[; ;main.c: 29: int count = 23;
+[e = _count -> 23 `i ]
+[; ;main.c: 30: while (dividendo > 0 && count > 0) {
+"30
+[e $U 10  ]
+[e :U 11 ]
+{
+[; ;main.c: 31: if (dividendo >= divisor) {
+"31
+[e $ ! >= _dividendo _divisor 13  ]
+{
+[; ;main.c: 32: dividendo -= divisor;
+"32
+[e =- _dividendo _divisor ]
+[; ;main.c: 33: resultadoFraccion |= temp2;
+"33
+[e =| _resultadoFraccion _temp2 ]
+"34
+}
+[e :U 13 ]
+[; ;main.c: 34: }
+[; ;main.c: 35: temp2 >>= 1;
+"35
+[e =>> _temp2 -> 1 `i ]
+[; ;main.c: 36: dividendo <<= 1;
+"36
+[e =<< _dividendo -> 1 `i ]
+[; ;main.c: 37: count--;
+"37
+[e -- _count -> 1 `i ]
+"38
+}
+[e :U 10 ]
+"30
+[e $ && > _dividendo -> -> 0 `i `ui > _count -> 0 `i 11  ]
+[e :U 12 ]
+"39
+}
+[e :U 9 ]
+[; ;main.c: 38: }
+[; ;main.c: 39: }
+[; ;main.c: 40: resultado[0] = resultadoParteEntera;
+"40
+[e = *U + _resultado * -> -> 0 `i `x -> -> # *U _resultado `i `x -> _resultadoParteEntera `*ui ]
+[; ;main.c: 41: resultado[1] = resultadoFraccion;
+"41
+[e = *U + _resultado * -> -> 1 `i `x -> -> # *U _resultado `i `x -> _resultadoFraccion `*ui ]
+[; ;main.c: 42: }
+"42
+[e :UE 1 ]
+}
+"44
+[v _probarDivision `(v ~T0 @X0 1 ef2`ui`ui ]
+{
+[; ;main.c: 44: void probarDivision(unsigned int operando1, unsigned int operando2) {
+[e :U _probarDivision ]
+[v _operando1 `ui ~T0 @X0 1 r1 ]
+[v _operando2 `ui ~T0 @X0 1 r2 ]
+[f ]
+[v F17 `ui ~T0 @X0 -> 2 `i s ]
+[i F17
+:U ..
+"45
+-> -> 0 `i `ui
+-> -> 0 `i `ui
+..
+]
+[v _resultado `ui ~T0 @X0 -> 2 `i a ]
+[; ;main.c: 45: unsigned int resultado[2] = { 0, 0 };
+[e = _resultado F17 ]
+[; ;main.c: 46: divisionEntera(operando1, operando2, &resultado);
+"46
+[e ( _divisionEntera (3 , , _operando1 _operando2 -> &U _resultado `**ui ]
+[; ;main.c: 47: }
+"47
+[e :UE 14 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"49
+[v _main `(i ~T0 @X0 1 ef ]
+"50
+{
+[; ;main.c: 49: int main()
+[; ;main.c: 50: {
+[e :U _main ]
+[f ]
+[; ;main.c: 51: probarDivision(43, 4);
+"51
+[e ( _probarDivision (2 , -> -> 43 `i `ui -> -> 4 `i `ui ]
+[; ;main.c: 52: }
+"52
+[e :UE 15 ]
+}

@@ -1,0 +1,301 @@
+
+# 1 "sprdiv.c"
+
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 20 "fpform.h"
+typedef union {
+int32_t i;
+double f;
+struct {
+unsigned char a, b, c, d;
+} fAsBytes;
+struct {
+int16_t wordA, wordB;
+} fAsWords;
+} SFP;
+
+typedef union {
+int16_t i;
+uint16_t n;
+struct {
+unsigned char a, b;
+} nAsBytes;
+} wordProduct;
+
+# 77
+extern double __fladd(double x, double y);
+extern double __flsub(double x, double y);
+extern double __flmul(double x, double y);
+extern double __fldiv(double x, double y);
+extern int spcmp(double x, double y);
+extern double sqrt(double x);
+
+extern unsigned int _Umul8_16(unsigned char multiplier, unsigned char multiplicand);
+
+# 7 "sprdiv.c"
+double
+__fldiv(double a, double b)
+
+# 13
+{
+
+
+unsigned char sign;
+
+unsigned char bexp;
+unsigned char aexp;
+int16_t new_exp;
+uint32_t grs;
+uint32_t rem;
+
+
+
+sign = (*(SFP *)&b).fAsBytes.d & 0x80;
+bexp = (*(SFP *)&b).fAsBytes.d << 1;
+if ((*(SFP *)&b).fAsBytes.c & 0x80) {
+bexp |= 0x1;
+}
+
+
+if (bexp) {
+
+if (bexp == 0xFF) {
+
+b = 0;
+}
+
+(*(SFP *)&b).i |= (int32_t) 1 << 23;
+
+(*(SFP *)&b).fAsBytes.d = 0;
+}
+else {
+
+b = 0;
+}
+
+sign ^= (*(SFP *)&a).fAsBytes.d & 0x80;
+aexp = (*(SFP *)&a).fAsBytes.d << 1;
+if ((*(SFP *)&a).fAsBytes.c & 0x80) {
+aexp |= 0x1;
+}
+
+
+if (aexp) {
+
+if (aexp == 0xFF) {
+
+a = 0;
+}
+
+(*(SFP *)&a).i |= (int32_t) 1 << 23;
+
+(*(SFP *)&a).fAsBytes.d = 0;
+}
+else {
+
+a = 0;
+}
+
+
+
+
+if ((*(SFP *)&a).i == 0) {
+(*(SFP *)&b).i = 0;
+(*(SFP *)&b).fAsWords.wordB |= ((((int16_t)1 << 8) - 1) << 7);
+return b;
+}
+
+
+if (!bexp) {
+(*(SFP *)&b).i = 0;
+return b;
+}
+
+
+new_exp = bexp - aexp + 127;
+
+
+rem = (*(SFP *)&b).i;
+(*(SFP *)&b).i = 0;
+grs = 0;
+
+aexp = 0;
+while (aexp < 26) {
+
+
+if (aexp) {
+rem <<= 1;
+(*(SFP *)&b).i <<= 1;
+if (grs & 0x80000000) {
+(*(SFP *)&b).i |= 0x1;
+}
+grs <<= 1;
+}
+
+
+
+
+if (!(rem < (*(SFP *)&a).i)) {
+
+
+grs |= 0x40000000;
+rem -= (*(SFP *)&a).i;
+}
+++aexp;
+}
+
+
+if (rem) {
+grs |= 1;
+}
+
+
+while (!((*(SFP *)&b).i & ((int32_t) 1 << 23))) {
+(*(SFP *)&b).i <<= 1;
+if (grs & 0x80000000) {
+(*(SFP *)&b).i |= 0x1;
+}
+grs <<= 1;
+--new_exp;
+}
+
+
+
+
+aexp = 0;
+if (grs & ((uint32_t) 1 << 31)) {
+if (grs & (((uint32_t) 1 << 31) - 1)) {
+aexp = 1;
+}
+else {
+if ((*(SFP *)&b).i & 1) {
+aexp = 1;
+}
+}
+}
+if (aexp) {
+++(*(SFP *)&b).i;
+if ((*(SFP *)&b).i & ((int32_t) 1 << (23 + 1))) {
+(*(SFP *)&b).i = (*(SFP *)&b).i >> 1;
+++new_exp;
+}
+}
+
+
+if (!(new_exp < (((int16_t)1 << 8) - 1))) {
+new_exp = (((int16_t)1 << 8) - 1);
+(*(SFP *)&b).i = 0;
+}
+
+
+if (!(0 < new_exp)) {
+new_exp = 0;
+(*(SFP *)&b).i = 0;
+
+sign = 0;
+}
+
+
+bexp = new_exp;
+
+if (bexp & 0x1) {
+(*(SFP *)&b).fAsBytes.c |= 0x80;
+}
+
+else {
+(*(SFP *)&b).fAsBytes.c &= 0x7F;
+}
+(*(SFP *)&b).fAsBytes.d = bexp >> 1;
+(*(SFP *)&b).fAsBytes.d |= sign;
+return b;
+}
+

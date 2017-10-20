@@ -1,0 +1,483 @@
+Version 3.2 HI-TECH Software Intermediate Code
+"23 fpform.h
+[s S2 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S2 . a b c d ]
+"26
+[s S3 `i 1 `i 1 ]
+[n S3 . wordA wordB ]
+"20
+[u S1 `l 1 `d 1 `S2 1 `S3 1 ]
+[n S1 . i f fAsBytes fAsWords ]
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;fpform.h: 20: typedef union {
+[; ;fpform.h: 21: int32_t i;
+[; ;fpform.h: 22: double f;
+[; ;fpform.h: 23: struct {
+[; ;fpform.h: 24: unsigned char a, b, c, d;
+[; ;fpform.h: 25: } fAsBytes;
+[; ;fpform.h: 26: struct {
+[; ;fpform.h: 27: int16_t wordA, wordB;
+[; ;fpform.h: 28: } fAsWords;
+[; ;fpform.h: 29: } SFP;
+[; ;fpform.h: 31: typedef union {
+[; ;fpform.h: 32: int16_t i;
+[; ;fpform.h: 33: uint16_t n;
+[; ;fpform.h: 34: struct {
+[; ;fpform.h: 35: unsigned char a, b;
+[; ;fpform.h: 36: } nAsBytes;
+[; ;fpform.h: 37: } wordProduct;
+[; ;fpform.h: 77: extern double __fladd(double x, double y);
+[; ;fpform.h: 78: extern double __flsub(double x, double y);
+[; ;fpform.h: 79: extern double __flmul(double x, double y);
+[; ;fpform.h: 80: extern double __fldiv(double x, double y);
+[; ;fpform.h: 81: extern int spcmp(double x, double y);
+[; ;fpform.h: 82: extern double sqrt(double x);
+[; ;fpform.h: 84: extern unsigned int _Umul8_16(unsigned char multiplier, unsigned char multiplicand);
+"8 sprdiv.c
+[v ___fldiv `(d ~T0 @X0 1 ef2`d`d ]
+"13
+{
+[; ;sprdiv.c: 7: double
+[; ;sprdiv.c: 8: __fldiv(double a, double b)
+[; ;sprdiv.c: 13: {
+[e :U ___fldiv ]
+"8
+[v _a `d ~T0 @X0 1 r1 ]
+[v _b `d ~T0 @X0 1 r2 ]
+"13
+[f ]
+"16
+[v _sign `uc ~T0 @X0 1 a ]
+"18
+[v _bexp `uc ~T0 @X0 1 a ]
+"19
+[v _aexp `uc ~T0 @X0 1 a ]
+"20
+[v _new_exp `i ~T0 @X0 1 a ]
+"21
+[v _grs `ul ~T0 @X0 1 a ]
+"22
+[v _rem `ul ~T0 @X0 1 a ]
+[; ;sprdiv.c: 16: unsigned char sign;
+[; ;sprdiv.c: 18: unsigned char bexp;
+[; ;sprdiv.c: 19: unsigned char aexp;
+[; ;sprdiv.c: 20: int16_t new_exp;
+[; ;sprdiv.c: 21: uint32_t grs;
+[; ;sprdiv.c: 22: uint32_t rem;
+[; ;sprdiv.c: 26: sign = (*(SFP *)&b).fAsBytes.d & 0x80;
+"26
+[e = _sign -> & -> . . *U -> &U _b `*S1 2 3 `i -> 128 `i `uc ]
+[; ;sprdiv.c: 27: bexp = (*(SFP *)&b).fAsBytes.d << 1;
+"27
+[e = _bexp -> << -> . . *U -> &U _b `*S1 2 3 `i -> 1 `i `uc ]
+[; ;sprdiv.c: 28: if ((*(SFP *)&b).fAsBytes.c & 0x80) {
+"28
+[e $ ! != & -> . . *U -> &U _b `*S1 2 2 `i -> 128 `i -> 0 `i 7  ]
+{
+[; ;sprdiv.c: 29: bexp |= 0x1;
+"29
+[e =| _bexp -> -> 1 `i `uc ]
+"30
+}
+[e :U 7 ]
+[; ;sprdiv.c: 30: }
+[; ;sprdiv.c: 33: if (bexp) {
+"33
+[e $ ! != -> _bexp `i -> -> -> 0 `i `uc `i 8  ]
+{
+[; ;sprdiv.c: 35: if (bexp == 0xFF) {
+"35
+[e $ ! == -> _bexp `i -> 255 `i 9  ]
+{
+[; ;sprdiv.c: 37: b = 0;
+"37
+[e = _b -> -> 0 `i `d ]
+"38
+}
+[e :U 9 ]
+[; ;sprdiv.c: 38: }
+[; ;sprdiv.c: 40: (*(SFP *)&b).i |= (int32_t) 1 << 23;
+"40
+[e =| . *U -> &U _b `*S1 0 << -> -> 1 `i `l -> 23 `i ]
+[; ;sprdiv.c: 42: (*(SFP *)&b).fAsBytes.d = 0;
+"42
+[e = . . *U -> &U _b `*S1 2 3 -> -> 0 `i `uc ]
+"43
+}
+[; ;sprdiv.c: 43: }
+[e $U 10  ]
+"44
+[e :U 8 ]
+[; ;sprdiv.c: 44: else {
+{
+[; ;sprdiv.c: 46: b = 0;
+"46
+[e = _b -> -> 0 `i `d ]
+"47
+}
+[e :U 10 ]
+[; ;sprdiv.c: 47: }
+[; ;sprdiv.c: 49: sign ^= (*(SFP *)&a).fAsBytes.d & 0x80;
+"49
+[e =^ _sign -> & -> . . *U -> &U _a `*S1 2 3 `i -> 128 `i `uc ]
+[; ;sprdiv.c: 50: aexp = (*(SFP *)&a).fAsBytes.d << 1;
+"50
+[e = _aexp -> << -> . . *U -> &U _a `*S1 2 3 `i -> 1 `i `uc ]
+[; ;sprdiv.c: 51: if ((*(SFP *)&a).fAsBytes.c & 0x80) {
+"51
+[e $ ! != & -> . . *U -> &U _a `*S1 2 2 `i -> 128 `i -> 0 `i 11  ]
+{
+[; ;sprdiv.c: 52: aexp |= 0x1;
+"52
+[e =| _aexp -> -> 1 `i `uc ]
+"53
+}
+[e :U 11 ]
+[; ;sprdiv.c: 53: }
+[; ;sprdiv.c: 56: if (aexp) {
+"56
+[e $ ! != -> _aexp `i -> -> -> 0 `i `uc `i 12  ]
+{
+[; ;sprdiv.c: 58: if (aexp == 0xFF) {
+"58
+[e $ ! == -> _aexp `i -> 255 `i 13  ]
+{
+[; ;sprdiv.c: 60: a = 0;
+"60
+[e = _a -> -> 0 `i `d ]
+"61
+}
+[e :U 13 ]
+[; ;sprdiv.c: 61: }
+[; ;sprdiv.c: 63: (*(SFP *)&a).i |= (int32_t) 1 << 23;
+"63
+[e =| . *U -> &U _a `*S1 0 << -> -> 1 `i `l -> 23 `i ]
+[; ;sprdiv.c: 65: (*(SFP *)&a).fAsBytes.d = 0;
+"65
+[e = . . *U -> &U _a `*S1 2 3 -> -> 0 `i `uc ]
+"66
+}
+[; ;sprdiv.c: 66: }
+[e $U 14  ]
+"67
+[e :U 12 ]
+[; ;sprdiv.c: 67: else {
+{
+[; ;sprdiv.c: 69: a = 0;
+"69
+[e = _a -> -> 0 `i `d ]
+"70
+}
+[e :U 14 ]
+[; ;sprdiv.c: 70: }
+[; ;sprdiv.c: 75: if ((*(SFP *)&a).i == 0) {
+"75
+[e $ ! == . *U -> &U _a `*S1 0 -> -> 0 `i `l 15  ]
+{
+[; ;sprdiv.c: 76: (*(SFP *)&b).i = 0;
+"76
+[e = . *U -> &U _b `*S1 0 -> -> 0 `i `l ]
+[; ;sprdiv.c: 77: (*(SFP *)&b).fAsWords.wordB |= ((((int16_t)1 << 8) - 1) << 7);
+"77
+[e =| . . *U -> &U _b `*S1 3 1 << - << -> 1 `i -> 8 `i -> 1 `i -> 7 `i ]
+[; ;sprdiv.c: 78: return b;
+"78
+[e ) _b ]
+[e $UE 6  ]
+"79
+}
+[e :U 15 ]
+[; ;sprdiv.c: 79: }
+[; ;sprdiv.c: 82: if (!bexp) {
+"82
+[e $ ! ! != -> _bexp `i -> -> -> 0 `i `uc `i 16  ]
+{
+[; ;sprdiv.c: 83: (*(SFP *)&b).i = 0;
+"83
+[e = . *U -> &U _b `*S1 0 -> -> 0 `i `l ]
+[; ;sprdiv.c: 84: return b;
+"84
+[e ) _b ]
+[e $UE 6  ]
+"85
+}
+[e :U 16 ]
+[; ;sprdiv.c: 85: }
+[; ;sprdiv.c: 88: new_exp = bexp - aexp + 127;
+"88
+[e = _new_exp + - -> _bexp `i -> _aexp `i -> 127 `i ]
+[; ;sprdiv.c: 91: rem = (*(SFP *)&b).i;
+"91
+[e = _rem -> . *U -> &U _b `*S1 0 `ul ]
+[; ;sprdiv.c: 92: (*(SFP *)&b).i = 0;
+"92
+[e = . *U -> &U _b `*S1 0 -> -> 0 `i `l ]
+[; ;sprdiv.c: 93: grs = 0;
+"93
+[e = _grs -> -> -> 0 `i `l `ul ]
+[; ;sprdiv.c: 95: aexp = 0;
+"95
+[e = _aexp -> -> 0 `i `uc ]
+[; ;sprdiv.c: 96: while (aexp < 26) {
+"96
+[e $U 17  ]
+[e :U 18 ]
+{
+[; ;sprdiv.c: 99: if (aexp) {
+"99
+[e $ ! != -> _aexp `i -> -> -> 0 `i `uc `i 20  ]
+{
+[; ;sprdiv.c: 100: rem <<= 1;
+"100
+[e =<< _rem -> 1 `i ]
+[; ;sprdiv.c: 101: (*(SFP *)&b).i <<= 1;
+"101
+[e =<< . *U -> &U _b `*S1 0 -> 1 `i ]
+[; ;sprdiv.c: 102: if (grs & 0x80000000) {
+"102
+[e $ ! != & _grs -> -2147483648 `ul -> -> 0 `i `ul 21  ]
+{
+[; ;sprdiv.c: 103: (*(SFP *)&b).i |= 0x1;
+"103
+[e =| . *U -> &U _b `*S1 0 -> -> 1 `i `l ]
+"104
+}
+[e :U 21 ]
+[; ;sprdiv.c: 104: }
+[; ;sprdiv.c: 105: grs <<= 1;
+"105
+[e =<< _grs -> 1 `i ]
+"106
+}
+[e :U 20 ]
+[; ;sprdiv.c: 106: }
+[; ;sprdiv.c: 111: if (!(rem < (*(SFP *)&a).i)) {
+"111
+[e $ ! ! < _rem -> . *U -> &U _a `*S1 0 `ul 22  ]
+{
+[; ;sprdiv.c: 114: grs |= 0x40000000;
+"114
+[e =| _grs -> -> 1073741824 `l `ul ]
+[; ;sprdiv.c: 115: rem -= (*(SFP *)&a).i;
+"115
+[e =- _rem -> . *U -> &U _a `*S1 0 `ul ]
+"116
+}
+[e :U 22 ]
+[; ;sprdiv.c: 116: }
+[; ;sprdiv.c: 117: ++aexp;
+"117
+[e =+ _aexp -> -> 1 `i `uc ]
+"118
+}
+[e :U 17 ]
+"96
+[e $ < -> _aexp `i -> 26 `i 18  ]
+[e :U 19 ]
+[; ;sprdiv.c: 118: }
+[; ;sprdiv.c: 121: if (rem) {
+"121
+[e $ ! != _rem -> -> 0 `i `ul 23  ]
+{
+[; ;sprdiv.c: 122: grs |= 1;
+"122
+[e =| _grs -> -> -> 1 `i `l `ul ]
+"123
+}
+[e :U 23 ]
+[; ;sprdiv.c: 123: }
+[; ;sprdiv.c: 126: while (!((*(SFP *)&b).i & ((int32_t) 1 << 23))) {
+"126
+[e $U 24  ]
+[e :U 25 ]
+{
+[; ;sprdiv.c: 127: (*(SFP *)&b).i <<= 1;
+"127
+[e =<< . *U -> &U _b `*S1 0 -> 1 `i ]
+[; ;sprdiv.c: 128: if (grs & 0x80000000) {
+"128
+[e $ ! != & _grs -> -2147483648 `ul -> -> 0 `i `ul 27  ]
+{
+[; ;sprdiv.c: 129: (*(SFP *)&b).i |= 0x1;
+"129
+[e =| . *U -> &U _b `*S1 0 -> -> 1 `i `l ]
+"130
+}
+[e :U 27 ]
+[; ;sprdiv.c: 130: }
+[; ;sprdiv.c: 131: grs <<= 1;
+"131
+[e =<< _grs -> 1 `i ]
+[; ;sprdiv.c: 132: --new_exp;
+"132
+[e =- _new_exp -> 1 `i ]
+"133
+}
+[e :U 24 ]
+"126
+[e $ ! != & . *U -> &U _b `*S1 0 << -> -> 1 `i `l -> 23 `i -> -> 0 `i `l 25  ]
+[e :U 26 ]
+[; ;sprdiv.c: 133: }
+[; ;sprdiv.c: 138: aexp = 0;
+"138
+[e = _aexp -> -> 0 `i `uc ]
+[; ;sprdiv.c: 139: if (grs & ((uint32_t) 1 << 31)) {
+"139
+[e $ ! != & _grs << -> -> 1 `i `ul -> 31 `i -> -> 0 `i `ul 28  ]
+{
+[; ;sprdiv.c: 140: if (grs & (((uint32_t) 1 << 31) - 1)) {
+"140
+[e $ ! != & _grs - << -> -> 1 `i `ul -> 31 `i -> -> -> 1 `i `l `ul -> -> 0 `i `ul 29  ]
+{
+[; ;sprdiv.c: 141: aexp = 1;
+"141
+[e = _aexp -> -> 1 `i `uc ]
+"142
+}
+[; ;sprdiv.c: 142: }
+[e $U 30  ]
+"143
+[e :U 29 ]
+[; ;sprdiv.c: 143: else {
+{
+[; ;sprdiv.c: 144: if ((*(SFP *)&b).i & 1) {
+"144
+[e $ ! != & . *U -> &U _b `*S1 0 -> -> 1 `i `l -> -> 0 `i `l 31  ]
+{
+[; ;sprdiv.c: 145: aexp = 1;
+"145
+[e = _aexp -> -> 1 `i `uc ]
+"146
+}
+[e :U 31 ]
+"147
+}
+[e :U 30 ]
+"148
+}
+[e :U 28 ]
+[; ;sprdiv.c: 146: }
+[; ;sprdiv.c: 147: }
+[; ;sprdiv.c: 148: }
+[; ;sprdiv.c: 149: if (aexp) {
+"149
+[e $ ! != -> _aexp `i -> -> -> 0 `i `uc `i 32  ]
+{
+[; ;sprdiv.c: 150: ++(*(SFP *)&b).i;
+"150
+[e =+ . *U -> &U _b `*S1 0 -> -> 1 `i `l ]
+[; ;sprdiv.c: 151: if ((*(SFP *)&b).i & ((int32_t) 1 << (23 + 1))) {
+"151
+[e $ ! != & . *U -> &U _b `*S1 0 << -> -> 1 `i `l + -> 23 `i -> 1 `i -> -> 0 `i `l 33  ]
+{
+[; ;sprdiv.c: 152: (*(SFP *)&b).i = (*(SFP *)&b).i >> 1;
+"152
+[e = . *U -> &U _b `*S1 0 >> . *U -> &U _b `*S1 0 -> 1 `i ]
+[; ;sprdiv.c: 153: ++new_exp;
+"153
+[e =+ _new_exp -> 1 `i ]
+"154
+}
+[e :U 33 ]
+"155
+}
+[e :U 32 ]
+[; ;sprdiv.c: 154: }
+[; ;sprdiv.c: 155: }
+[; ;sprdiv.c: 158: if (!(new_exp < (((int16_t)1 << 8) - 1))) {
+"158
+[e $ ! ! < _new_exp - << -> 1 `i -> 8 `i -> 1 `i 34  ]
+{
+[; ;sprdiv.c: 159: new_exp = (((int16_t)1 << 8) - 1);
+"159
+[e = _new_exp - << -> 1 `i -> 8 `i -> 1 `i ]
+[; ;sprdiv.c: 160: (*(SFP *)&b).i = 0;
+"160
+[e = . *U -> &U _b `*S1 0 -> -> 0 `i `l ]
+"161
+}
+[e :U 34 ]
+[; ;sprdiv.c: 161: }
+[; ;sprdiv.c: 164: if (!(0 < new_exp)) {
+"164
+[e $ ! ! < -> 0 `i _new_exp 35  ]
+{
+[; ;sprdiv.c: 165: new_exp = 0;
+"165
+[e = _new_exp -> 0 `i ]
+[; ;sprdiv.c: 166: (*(SFP *)&b).i = 0;
+"166
+[e = . *U -> &U _b `*S1 0 -> -> 0 `i `l ]
+[; ;sprdiv.c: 168: sign = 0;
+"168
+[e = _sign -> -> 0 `i `uc ]
+"169
+}
+[e :U 35 ]
+[; ;sprdiv.c: 169: }
+[; ;sprdiv.c: 172: bexp = new_exp;
+"172
+[e = _bexp -> _new_exp `uc ]
+[; ;sprdiv.c: 174: if (bexp & 0x1) {
+"174
+[e $ ! != & -> _bexp `i -> 1 `i -> 0 `i 36  ]
+{
+[; ;sprdiv.c: 175: (*(SFP *)&b).fAsBytes.c |= 0x80;
+"175
+[e =| . . *U -> &U _b `*S1 2 2 -> -> 128 `i `uc ]
+"176
+}
+[; ;sprdiv.c: 176: }
+[e $U 37  ]
+"178
+[e :U 36 ]
+[; ;sprdiv.c: 178: else {
+{
+[; ;sprdiv.c: 179: (*(SFP *)&b).fAsBytes.c &= 0x7F;
+"179
+[e =& . . *U -> &U _b `*S1 2 2 -> -> 127 `i `uc ]
+"180
+}
+[e :U 37 ]
+[; ;sprdiv.c: 180: }
+[; ;sprdiv.c: 181: (*(SFP *)&b).fAsBytes.d = bexp >> 1;
+"181
+[e = . . *U -> &U _b `*S1 2 3 -> >> -> _bexp `i -> 1 `i `uc ]
+[; ;sprdiv.c: 182: (*(SFP *)&b).fAsBytes.d |= sign;
+"182
+[e =| . . *U -> &U _b `*S1 2 3 _sign ]
+[; ;sprdiv.c: 183: return b;
+"183
+[e ) _b ]
+[e $UE 6  ]
+[; ;sprdiv.c: 184: }
+"184
+[e :UE 6 ]
+}
