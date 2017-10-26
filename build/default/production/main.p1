@@ -1,4 +1,32 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"795 C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h
+[v _TRISIO `Vuc ~T0 @X0 0 e@133 ]
+"731
+[s S42 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S42 . PS PSA T0SE T0CS INTEDG nGPPU ]
+"739
+[s S43 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S43 . PS0 PS1 PS2 ]
+"730
+[u S41 `S42 1 `S43 1 ]
+[n S41 . . . ]
+"745
+[v _OPTION_REGbits `VS41 ~T0 @X0 0 e@129 ]
+"222
+[s S14 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S14 . GP0 GP1 GP2 GP3 GP4 GP5 ]
+"230
+[s S15 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S15 . GPIO0 GPIO1 GPIO2 GPIO3 GPIO4 GPIO5 ]
+"221
+[u S13 `S14 1 `S15 1 ]
+[n S13 . . . ]
+"239
+[v _GPIObits `VS13 ~T0 @X0 0 e@5 ]
+[v F664 `(v ~T0 @X0 1 tf1`ul ]
+"152 C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic.h
+[v __delay `JF664 ~T0 @X0 0 e ]
+[p i __delay ]
 [p mainexit ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -628,47 +656,348 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 192: extern unsigned char __resetbits;
 [; ;pic.h: 193: extern __bit __powerdown;
 [; ;pic.h: 194: extern __bit __timeout;
-"39 main.c
-[p x MCLRE=ON ]
-[p x CP=OFF ]
-[p x CPD=OFF ]
-[p x BOREN=OFF ]
-[p x WDTE=OFF ]
-[p x PWRTE=OFF ]
-[p x FOSC=INTRCIO ]
-[v $root$_main `(v ~T0 @X0 0 e ]
-"42
-[v _main `(v ~T0 @X0 1 ef ]
+"12 main.c
+[v _operando1 `uc ~T0 @X0 1 e ]
+[; ;main.c: 12: char operando1;
+"13
+[v _operando2 `uc ~T0 @X0 1 e ]
+[; ;main.c: 13: char operando2;
+"14
+[v _flagFlanco `b ~T0 @X0 1 e ]
+[i _flagFlanco
+-> 0 `i
+]
+[; ;main.c: 14: bit flagFlanco = 0;
+"15
+[v _tiempoParpadeo `i ~T0 @X0 1 e ]
+[i _tiempoParpadeo
+-> 1000 `i
+]
+[; ;main.c: 15: int tiempoParpadeo = 1000;
+"16
+[v _datoTemporal `i ~T0 @X0 1 e ]
+[i _datoTemporal
+-> 0 `i
+]
+[; ;main.c: 16: int datoTemporal = 0;
+"18
+[v _configuracion `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 39: __config("__CONFIG", "pic", "MCLRE_ON & CP_OFF & CPD_OFF & BOREN_OFF & WDTE_OFF & PWRTE_OFF & FOSC_INTRCIO");
-[; ;main.c: 42: void main() {
+[; ;main.c: 18: void configuracion() {
+[e :U _configuracion ]
+[f ]
+[; ;main.c: 25: TRISIO = 0b111100;
+"25
+[e = _TRISIO -> -> 60 `i `uc ]
+[; ;main.c: 28: OPTION_REGbits.T0CS = 0;
+"28
+[e = . . _OPTION_REGbits 0 3 -> -> 0 `i `uc ]
+[; ;main.c: 29: OPTION_REGbits.PSA = 0;
+"29
+[e = . . _OPTION_REGbits 0 1 -> -> 0 `i `uc ]
+[; ;main.c: 30: OPTION_REGbits.PS = 0b111;
+"30
+[e = . . _OPTION_REGbits 0 0 -> -> 7 `i `uc ]
+[; ;main.c: 31: }
+"31
+[e :UE 81 ]
+}
+"33
+[v _divisionEntera `(ui ~T0 @X0 1 ef2`ui`ui ]
+{
+[; ;main.c: 33: unsigned int divisionEntera(unsigned int dividendo1, unsigned int divisor1) {
+[e :U _divisionEntera ]
+[v _dividendo1 `ui ~T0 @X0 1 r1 ]
+[v _divisor1 `ui ~T0 @X0 1 r2 ]
+[f ]
+"34
+[v _denominador `ui ~T0 @X0 1 a ]
+[; ;main.c: 34: unsigned int denominador = divisor1;
+[e = _denominador _divisor1 ]
+"35
+[v _temp `ui ~T0 @X0 1 a ]
+[; ;main.c: 35: unsigned int temp = 1;
+[e = _temp -> -> 1 `i `ui ]
+"36
+[v _resultadoParteEntera `ui ~T0 @X0 1 a ]
+[; ;main.c: 36: unsigned int resultadoParteEntera = 0;
+[e = _resultadoParteEntera -> -> 0 `i `ui ]
+"37
+[v _dividendo `ui ~T0 @X0 1 a ]
+[; ;main.c: 37: unsigned int dividendo = dividendo1;
+[e = _dividendo _dividendo1 ]
+[; ;main.c: 39: if (divisor1 == 0) {
+"39
+[e $ ! == _divisor1 -> -> 0 `i `ui 83  ]
+{
+[; ;main.c: 40: return 0;
+"40
+[e ) -> -> 0 `i `ui ]
+[e $UE 82  ]
+"41
+}
+[e :U 83 ]
+[; ;main.c: 41: }
+[; ;main.c: 44: while (denominador <= dividendo) {
+"44
+[e $U 84  ]
+[e :U 85 ]
+{
+[; ;main.c: 45: denominador <<= 1;
+"45
+[e =<< _denominador -> 1 `i ]
+[; ;main.c: 46: temp <<= 1;
+"46
+[e =<< _temp -> 1 `i ]
+"47
+}
+[e :U 84 ]
+"44
+[e $ <= _denominador _dividendo 85  ]
+[e :U 86 ]
+[; ;main.c: 47: }
+[; ;main.c: 49: denominador >>= 1;
+"49
+[e =>> _denominador -> 1 `i ]
+[; ;main.c: 50: temp >>= 1;
+"50
+[e =>> _temp -> 1 `i ]
+[; ;main.c: 52: while (temp != 0) {
+"52
+[e $U 87  ]
+[e :U 88 ]
+{
+[; ;main.c: 53: if (dividendo >= denominador) {
+"53
+[e $ ! >= _dividendo _denominador 90  ]
+{
+[; ;main.c: 54: dividendo -= denominador;
+"54
+[e =- _dividendo _denominador ]
+[; ;main.c: 55: resultadoParteEntera |= temp;
+"55
+[e =| _resultadoParteEntera _temp ]
+"56
+}
+[e :U 90 ]
+[; ;main.c: 56: }
+[; ;main.c: 57: temp >>= 1;
+"57
+[e =>> _temp -> 1 `i ]
+[; ;main.c: 58: denominador >>= 1;
+"58
+[e =>> _denominador -> 1 `i ]
+"59
+}
+[e :U 87 ]
+"52
+[e $ != _temp -> -> 0 `i `ui 88  ]
+[e :U 89 ]
+[; ;main.c: 59: }
+[; ;main.c: 61: return resultadoParteEntera;
+"61
+[e ) _resultadoParteEntera ]
+[e $UE 82  ]
+[; ;main.c: 62: }
+"62
+[e :UE 82 ]
+}
+"64
+[v _parpadearLEDResultado `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 64: void parpadearLEDResultado() {
+[e :U _parpadearLEDResultado ]
+[f ]
+[; ;main.c: 65: GPIObits.GPIO0 = 0;
+"65
+[e = . . _GPIObits 1 0 -> -> 0 `i `uc ]
+[; ;main.c: 66: _delay(tiempoParpadeo);
+"66
+[e ( __delay (1 -> -> _tiempoParpadeo `l `ul ]
+[; ;main.c: 67: GPIObits.GPIO0 = 1;
+"67
+[e = . . _GPIObits 1 0 -> -> 1 `i `uc ]
+[; ;main.c: 68: _delay(tiempoParpadeo);
+"68
+[e ( __delay (1 -> -> _tiempoParpadeo `l `ul ]
+[; ;main.c: 69: }
+"69
+[e :UE 91 ]
+}
+"71
+[v _mostrarResultado `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 71: void mostrarResultado() {
+[e :U _mostrarResultado ]
+[f ]
+"72
+[v _resultado `i ~T0 @X0 1 a ]
+[; ;main.c: 72: int resultado = divisionEntera(operando1, operando2);
+[e = _resultado -> ( _divisionEntera (2 , -> _operando1 `ui -> _operando2 `ui `i ]
+[; ;main.c: 74: while (resultado > 0) {
+"74
+[e $U 93  ]
+[e :U 94 ]
+{
+[; ;main.c: 75: asm("clrwdt");
+"75
+[; <" clrwdt ;# ">
+[; ;main.c: 76: parpadearLEDResultado();
+"76
+[e ( _parpadearLEDResultado ..  ]
+[; ;main.c: 77: resultado--;
+"77
+[e -- _resultado -> 1 `i ]
+"78
+}
+[e :U 93 ]
+"74
+[e $ > _resultado -> 0 `i 94  ]
+[e :U 95 ]
+[; ;main.c: 78: }
+[; ;main.c: 79: }
+"79
+[e :UE 92 ]
+}
+"81
+[v _leerDatos `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 81: void leerDatos() {
+[e :U _leerDatos ]
+[f ]
+[; ;main.c: 82: datoTemporal = 0;
+"82
+[e = _datoTemporal -> 0 `i ]
+[; ;main.c: 83: if (GPIObits.GP3 == 1) {
+"83
+[e $ ! == -> . . _GPIObits 0 3 `i -> 1 `i 97  ]
+{
+[; ;main.c: 84: if (flagFlanco == 0) {
+"84
+[e $ ! == -> _flagFlanco `i -> 0 `i 98  ]
+{
+"85
+[v _espera `l ~T0 @X0 1 a ]
+[; ;main.c: 85: long espera = 200000;
+[e = _espera -> 200000 `l ]
+[; ;main.c: 86: while (espera > 0) {
+"86
+[e $U 99  ]
+[e :U 100 ]
+{
+[; ;main.c: 87: espera--;
+"87
+[e -- _espera -> -> 1 `i `l ]
+[; ;main.c: 88: asm("clrwdt");
+"88
+[; <" clrwdt ;# ">
+[; ;main.c: 89: if (GPIObits.GP3 == 0) {
+"89
+[e $ ! == -> . . _GPIObits 0 3 `i -> 0 `i 102  ]
+{
+[; ;main.c: 90: flagFlanco = 1;
+"90
+[e = _flagFlanco -> -> 1 `i `b ]
+[; ;main.c: 91: datoTemporal = 1;
+"91
+[e = _datoTemporal -> 1 `i ]
+[; ;main.c: 92: if (GPIObits.GP5 == 0) {
+"92
+[e $ ! == -> . . _GPIObits 0 5 `i -> 0 `i 103  ]
+{
+[; ;main.c: 93: operando1 += datoTemporal;
+"93
+[e =+ _operando1 -> _datoTemporal `uc ]
+"94
+}
+[; ;main.c: 94: } else {
+[e $U 104  ]
+[e :U 103 ]
+{
+[; ;main.c: 95: operando2 += datoTemporal;
+"95
+[e =+ _operando2 -> _datoTemporal `uc ]
+"96
+}
+[e :U 104 ]
+[; ;main.c: 96: }
+[; ;main.c: 97: return;
+"97
+[e $UE 96  ]
+"98
+}
+[; ;main.c: 98: } else if (espera == 0) {
+[e $U 105  ]
+[e :U 102 ]
+[e $ ! == _espera -> -> 0 `i `l 106  ]
+{
+[; ;main.c: 99: mostrarResultado();
+"99
+[e ( _mostrarResultado ..  ]
+[; ;main.c: 100: return;
+"100
+[e $UE 96  ]
+"101
+}
+[e :U 106 ]
+"102
+[e :U 105 ]
+}
+[e :U 99 ]
+"86
+[e $ > _espera -> -> 0 `i `l 100  ]
+[e :U 101 ]
+"103
+}
+[e :U 98 ]
+"104
+}
+[; ;main.c: 101: }
+[; ;main.c: 102: }
+[; ;main.c: 103: }
+[; ;main.c: 104: } else {
+[e $U 107  ]
+[e :U 97 ]
+{
+[; ;main.c: 105: flagFlanco = 0;
+"105
+[e = _flagFlanco -> -> 0 `i `b ]
+"106
+}
+[e :U 107 ]
+[; ;main.c: 106: }
+[; ;main.c: 107: }
+"107
+[e :UE 96 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"109
+[v _main `(i ~T0 @X0 1 ef ]
+{
+[; ;main.c: 109: int main() {
 [e :U _main ]
 [f ]
-"49
-[v _a `f ~T0 @X0 1 a ]
-[; ;main.c: 49: float a = 1.2;
-[e = _a -> .1.2 `f ]
-"50
-[v _b `f ~T0 @X0 1 a ]
-[; ;main.c: 50: float b = 4.4;
-[e = _b -> .4.4 `f ]
-"52
-[v _result `f ~T0 @X0 1 a ]
-[; ;main.c: 52: float result = a + b;
-[e = _result + _a _b ]
-[; ;main.c: 58: for (;;) {
-"58
+[; ;main.c: 110: configuracion();
+"110
+[e ( _configuracion ..  ]
+[; ;main.c: 111: for (;;) {
+"111
 {
-[e :U 82 ]
+[e :U 109 ]
 {
-[; ;main.c: 59: ;
-"60
+[; ;main.c: 112: asm("clrwdt");
+"112
+[; <" clrwdt ;# ">
+[; ;main.c: 113: leerDatos();
+"113
+[e ( _leerDatos ..  ]
+"114
 }
-[; ;main.c: 60: }
-[e $U 82  ]
-[e :U 83 ]
+[; ;main.c: 114: }
+[e $U 109  ]
+[e :U 110 ]
 }
-[; ;main.c: 61: }
-"61
-[e :UE 81 ]
+[; ;main.c: 115: }
+"115
+[e :UE 108 ]
 }

@@ -871,20 +871,104 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 39 "main.c"
-__config("__CONFIG", "pic", "MCLRE_ON & CP_OFF & CPD_OFF & BOREN_OFF & WDTE_OFF & PWRTE_OFF & FOSC_INTRCIO");
+# 12 "main.c"
+char operando1;
+char operando2;
+bit flagFlanco = 0;
+int tiempoParpadeo = 1000;
+int datoTemporal = 0;
+
+void configuracion() {
+
+# 25
+TRISIO = 0b111100;
 
 
-void main() {
+OPTION_REGbits.T0CS = 0;
+OPTION_REGbits.PSA = 0;
+OPTION_REGbits.PS = 0b111;
+}
 
-# 49
-float a = 1.2;
-float b = 4.4;
+unsigned int divisionEntera(unsigned int dividendo1, unsigned int divisor1) {
+unsigned int denominador = divisor1;
+unsigned int temp = 1;
+unsigned int resultadoParteEntera = 0;
+unsigned int dividendo = dividendo1;
 
-float result = a + b;
+if (divisor1 == 0) {
+return 0;
+}
 
-# 58
+
+while (denominador <= dividendo) {
+denominador <<= 1;
+temp <<= 1;
+}
+
+denominador >>= 1;
+temp >>= 1;
+
+while (temp != 0) {
+if (dividendo >= denominador) {
+dividendo -= denominador;
+resultadoParteEntera |= temp;
+}
+temp >>= 1;
+denominador >>= 1;
+}
+
+return resultadoParteEntera;
+}
+
+void parpadearLEDResultado() {
+GPIObits.GPIO0 = 0;
+_delay(tiempoParpadeo);
+GPIObits.GPIO0 = 1;
+_delay(tiempoParpadeo);
+}
+
+void mostrarResultado() {
+int resultado = divisionEntera(operando1, operando2);
+
+while (resultado > 0) {
+asm("clrwdt");
+parpadearLEDResultado();
+resultado--;
+}
+}
+
+void leerDatos() {
+datoTemporal = 0;
+if (GPIObits.GP3 == 1) {
+if (flagFlanco == 0) {
+long espera = 200000;
+while (espera > 0) {
+espera--;
+asm("clrwdt");
+if (GPIObits.GP3 == 0) {
+flagFlanco = 1;
+datoTemporal = 1;
+if (GPIObits.GP5 == 0) {
+operando1 += datoTemporal;
+} else {
+operando2 += datoTemporal;
+}
+return;
+} else if (espera == 0) {
+mostrarResultado();
+return;
+}
+}
+}
+} else {
+flagFlanco = 0;
+}
+}
+
+int main() {
+configuracion();
 for (;;) {
-;
+asm("clrwdt");
+leerDatos();
 }
 }

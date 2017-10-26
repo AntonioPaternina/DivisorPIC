@@ -11,49 +11,92 @@
 [v _eecpymem eecpymem `(v  1 e 1 0 ]
 "39
 [v _memcpyee memcpyee `(v  1 e 1 0 ]
-"1 C:\projects\poli\arquitectura-de-computadores\Taller3.X\main.c
+"18 C:\projects\poli\arquitectura-de-computadores\Taller3.X\main.c
+[v _configuracion configuracion `(v  1 e 1 0 ]
+"33
 [v _divisionEntera divisionEntera `(v  1 e 1 0 ]
-"44
-[v _probarDivision probarDivision `(v  1 e 1 0 ]
-"49
+"59
+[v _parpadearLEDResultado parpadearLEDResultado `(v  1 e 1 0 ]
+"66
+[v _mostrarResultado mostrarResultado `(v  1 e 1 0 ]
+"76
+[v _leerDatos leerDatos `(v  1 e 1 0 ]
+"102
 [v _main main `(i  1 e 2 0 ]
+[s S46 . 1 `uc 1 GP0 1 0 :1:0 
+`uc 1 GP1 1 0 :1:1 
+`uc 1 GP2 1 0 :1:2 
+`uc 1 GP3 1 0 :1:3 
+`uc 1 GP4 1 0 :1:4 
+`uc 1 GP5 1 0 :1:5 
+]
+"239 C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h
+[s S53 . 1 `uc 1 GPIO0 1 0 :1:0 
+`uc 1 GPIO1 1 0 :1:1 
+`uc 1 GPIO2 1 0 :1:2 
+`uc 1 GPIO3 1 0 :1:3 
+`uc 1 GPIO4 1 0 :1:4 
+`uc 1 GPIO5 1 0 :1:5 
+]
+[u S60 . 1 `S46 1 . 1 0 `S53 1 . 1 0 ]
+[v _GPIObits GPIObits `VES60  1 e 1 @5 ]
+[s S20 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nGPPU 1 0 :1:7 
+]
+"745
+[s S27 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+]
+[u S31 . 1 `S20 1 . 1 0 `S27 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES31  1 e 1 @129 ]
+"795
+[v _TRISIO TRISIO `VEuc  1 e 1 @133 ]
+"12 C:\projects\poli\arquitectura-de-computadores\Taller3.X\main.c
+[v _operando1 operando1 `uc  1 e 1 0 ]
+"13
+[v _operando2 operando2 `uc  1 e 1 0 ]
+"14
+[v _resultado resultado `uc  1 e 1 0 ]
+"15
+[v _flagFlanco flagFlanco `b  1 e 0 0 ]
+"16
+[v _tiempoParpadeo tiempoParpadeo `i  1 e 2 0 ]
+"102
 [v _main main `(i  1 e 2 0 ]
 {
-"52
+"108
 } 0
-"44
-[v _probarDivision probarDivision `(v  1 e 1 0 ]
+"76
+[v _leerDatos leerDatos `(v  1 e 1 0 ]
 {
-"45
-[v probarDivision@resultado resultado `[2]ui  1 a 4 26 ]
-"44
-[v probarDivision@operando1 operando1 `ui  1 p 2 21 ]
-[v probarDivision@operando2 operando2 `ui  1 p 2 23 ]
-[v probarDivision@F17 F17 `[2]ui  1 s 4 F17 ]
-"47
+"79
+[v leerDatos@espera espera `l  1 a 4 5 ]
+"100
 } 0
-"1
+"66
+[v _mostrarResultado mostrarResultado `(v  1 e 1 0 ]
+{
+"74
+} 0
+"59
+[v _parpadearLEDResultado parpadearLEDResultado `(v  1 e 1 0 ]
+{
+"64
+} 0
+"33
 [v _divisionEntera divisionEntera `(v  1 e 1 0 ]
 {
-"29
-[v divisionEntera@count count `i  1 a 2 11 ]
-"7
-[v divisionEntera@dividendo dividendo `ui  1 a 2 19 ]
-"2
-[v divisionEntera@denominador denominador `ui  1 a 2 17 ]
-"3
-[v divisionEntera@temp temp `ui  1 a 2 15 ]
-"8
-[v divisionEntera@divisor divisor `ui  1 a 2 13 ]
-"6
-[v divisionEntera@resultadoFraccion resultadoFraccion `ui  1 a 2 9 ]
-"5
-[v divisionEntera@resultadoParteEntera resultadoParteEntera `ui  1 a 2 7 ]
-"4
-[v divisionEntera@temp2 temp2 `ui  1 a 2 5 ]
-"1
-[v divisionEntera@dividendo1 dividendo1 `ui  1 p 2 0 ]
-[v divisionEntera@divisor1 divisor1 `ui  1 p 2 2 ]
-[v divisionEntera@resultado resultado `*.4*.39ui  1 p 1 4 ]
-"42
+"34
+[v divisionEntera@temp temp `uc  1 a 1 1 ]
+"57
+} 0
+"18
+[v _configuracion configuracion `(v  1 e 1 0 ]
+{
+"31
 } 0

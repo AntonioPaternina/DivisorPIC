@@ -5,9 +5,9 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v1.43\dat\en_msgs.txt -cs \
   -h+dist/default/debug\Taller3.X.debug.sym \
   --cmf=dist/default/debug\Taller3.X.debug.cmf -z -Q12F675 \
-  -oC:\Users\acpat\AppData\Local\Temp\sbh0.2 \
+  -oC:\Users\acpat\AppData\Local\Temp\s5e0.2 \
   -Mdist/default/debug/Taller3.X.debug.map -E1 -ver=XC8 --acfsm=1493 \
-  -ASTACK=042h-05dh -pstack=STACK -ACODE=00h-03FEh -ASTRCODE=00h-03FEh \
+  -ASTACK=02Fh-05dh -pstack=STACK -ACODE=00h-03FEh -ASTRCODE=00h-03FEh \
   -ASTRING=00h-0FFhx3,0300h-03FEh -ACONST=00h-0FFhx3,0300h-03FEh \
   -AENTRY=00h-0FFhx3,0300h-03FEh -ABANK0=020h-05Dh -ARAM=020h-05Dh \
   -AABS1=020h-05Fh -ACOMMON=05Eh-05Fh -ASFR0=00h-01Fh -ASFR1=080h-0DDh \
@@ -16,7 +16,7 @@ Linker command line:
   -AIDLOC=02000h-02003h -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-07Fh/02100h \
   -peeprom_data=EEDATA -DEEDATA=2 -posccal=03FFh -DCODE=2 -DSTRCODE=2 \
   -DSTRING=2 -DCONST=2 -DENTRY=2 -k \
-  C:\Users\acpat\AppData\Local\Temp\sbh0.obj \
+  C:\Users\acpat\AppData\Local\Temp\s5e0.obj \
   dist/default/debug\Taller3.X.debug.obj 
 
 Object code version is 3.11
@@ -26,25 +26,35 @@ Machine type is 12F675
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\acpat\AppData\Local\Temp\sbh0.obj
+C:\Users\acpat\AppData\Local\Temp\s5e0.obj
                 end_init                              0        0        1        0       0
 dist/default/debug\Taller3.X.debug.obj
-                cinit                               3F8      3F8        7      7F0       0
-                text2                               33F      33F       B9      67E       0
-                text1                               328      328       17      650       0
-                maintext                            31D      31D        B      63A       0
-                cstackBANK0                          20       20       1E       20       1
-                bssBANK0                             3E       3E        4       20       1
+                cinit                               3F5      3F5        A      7EA       0
+                text5                               337      337        8      66E       0
+                text4                               366      366       33      6CC       0
+                text3                               34F      34F       17      69E       0
+                text2                               33F      33F       10      67E       0
+                text1                               399      399       5C      732       0
+                maintext                            332      332        5      664       0
+                cstackBANK0                          20       20        9       20       1
+                dataBANK0                            2C       2C        2       20       1
+                bssBANK0                             29       29        3       20       1
+                bitbssBANK0                         170       2E        1       20       1     8
+                idataBANK0                          330      330        2      660       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   STACK          
 
         CLASS   CODE           
                 end_init                              0        0        1         0
-                cinit                               3F8      3F8        7         0
-                text2                               33F      33F       B9         0
-                text1                               328      328       17         0
-                maintext                            31D      31D        B         0
+                cinit                               3F5      3F5        A         0
+                text5                               337      337        8         0
+                text4                               366      366       33         0
+                text3                               34F      34F       17         0
+                text2                               33F      33F       10         0
+                text1                               399      399       5C         0
+                maintext                            332      332        5         0
+                idataBANK0                          330      330        2         0
 
         CLASS   STRCODE        
 
@@ -55,8 +65,10 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   ENTRY          
 
         CLASS   BANK0          
-                cstackBANK0                          20       20       1E         1
-                bssBANK0                             3E       3E        4         1
+                cstackBANK0                          20       20        9         1
+                dataBANK0                            2C       2C        2         1
+                bssBANK0                             29       29        3         1
+                bitbssBANK0                         170       2E        1         1
 
         CLASS   RAM            
 
@@ -82,163 +94,184 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000001  000001         0       0  CODE        2
-                cstackBANK0                    000020  000022  000042        20       1  BANK0       1
-                maintext                       00031D  00000B  000328       63A       0  CODE        2
-                text1                          000328  000017  00033F       650       0  CODE        2
-                text2                          00033F  0000B9  0003F8       67E       0  CODE        2
-                cinit                          0003F8  000007  0003FF       7F0       0  CODE        2
+                cstackBANK0                    000020  00000F  00002F        20       1  BANK0       1
+                idataBANK0                     000330  000002  000332       660       0  CODE        2
+                maintext                       000332  000005  000337       664       0  CODE        2
+                text5                          000337  000008  00033F       66E       0  CODE        2
+                text2                          00033F  000010  00034F       67E       0  CODE        2
+                text3                          00034F  000017  000366       69E       0  CODE        2
+                text4                          000366  000033  000399       6CC       0  CODE        2
+                text1                          000399  00005C  0003F5       732       0  CODE        2
+                cinit                          0003F5  00000A  0003FF       7EA       0  CODE        2
 
 
 UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
-        BANK0            042-05D            1C           1
-        CODE             001-31C           31C           2
-        CONFIG           2007-2007             1           2
-        CONST            001-31C           100           2
-        EEDATA           2100-217F            80           2
-        ENTRY            001-31C           100           2
-        IDLOC            2000-2003             4           2
-        RAM              042-05D            1C           1
-        SFR0             000-01F            20           1
-        SFR1             080-0DD            5E           1
-        STACK            042-05D            1C           1
-        STRCODE          001-31C           31C           2
-        STRING           001-31C           100           2
+        BANK0            002F-005D             2F           1
+        CODE             0001-032F            32F           2
+        CONFIG           2007-2007              1           2
+        CONST            0001-032F            100           2
+        EEDATA           2100-217F             80           2
+        ENTRY            0001-032F            100           2
+        IDLOC            2000-2003              4           2
+        RAM              002F-005D             2F           1
+        SFR0             0000-001F             20           1
+        SFR1             0080-00DD             5E           1
+        STACK            002F-005D             2F           1
+        STRCODE          0001-032F            32F           2
+        STRING           0001-032F            100           2
 
                                   Symbol Table
 
-__Habs1                             abs1         7FE
-__Hbank0                            bank0        7FE
-__Hbank1                            bank1        7FE
-__HbssBANK0                         bssBANK0     7FE
-__Hcinit                            cinit        3FF
-__Hclrtext                          clrtext      7FE
-__Hcode                             code         7FE
-__Hcommon                           common       7FE
-__Hconfig                           config       000
-__HcstackBANK0                      cstackBANK0  7FE
-__HcstackCOMMON                     cstackCOMMON 7FE
-__Heeprom_data                      eeprom_data  000
-__Hend_init                         end_init     001
-__Hfunctab                          functab      000
-__Hidloc                            idloc        000
-__Hinit                             init         000
-__Hintentry                         intentry     000
-__Hmaintext                         maintext     7FE
-__Hosccal                           osccal       3FF
-__Hpowerup                          powerup      000
-__Hram                              ram          7FE
-__Hreset_vec                        reset_vec    000
-__Hsfr0                             sfr0         7FE
-__Hsfr1                             sfr1         7FE
-__Hspace_0                          (abs)        7FE
-__Hspace_1                          (abs)        7FE
-__Hspace_2                          (abs)        000
-__Hspace_3                          (abs)        000
-__Hstack                            stack        000
-__Hstrings                          strings      7FE
-__Htext                             text         7FE
-__Labs1                             abs1         7FE
-__Lbank0                            bank0        7FE
-__Lbank1                            bank1        7FE
-__LbssBANK0                         bssBANK0     7FE
-__Lcinit                            cinit        3F8
-__Lclrtext                          clrtext      7FE
-__Lcode                             code         7FE
-__Lcommon                           common       7FE
-__Lconfig                           config       000
-__LcstackBANK0                      cstackBANK0  7FE
-__LcstackCOMMON                     cstackCOMMON 7FE
-__Leeprom_data                      eeprom_data  000
-__Lend_init                         end_init     000
-__Lfunctab                          functab      000
-__Lidloc                            idloc        000
-__Linit                             init         000
-__Lintentry                         intentry     000
-__Lmaintext                         maintext     7FE
-__Losccal                           osccal       3FF
-__Lpowerup                          powerup      000
-__Lram                              ram          7FE
-__Lreset_vec                        reset_vec    000
-__Lsfr0                             sfr0         7FE
-__Lsfr1                             sfr1         7FE
-__Lspace_0                          (abs)        000
-__Lspace_1                          (abs)        000
-__Lspace_2                          (abs)        000
-__Lspace_3                          (abs)        000
-__Lstack                            stack        000
-__Lstrings                          strings      7FE
-__Ltext                             text         7FE
-__S0                                (abs)        3FF
-__S1                                (abs)        042
-__S2                                (abs)        000
-__S3                                (abs)        000
-___int_sp                           stack        000
-___latbits                          (abs)        000
-___osccal_val                       osccal       3FF
-___sp                               stack        000
-__end_of__initialization            cinit        3FD
-__end_of_divisionEntera             text2        3F8
-__end_of_main                       maintext     328
-__end_of_probarDivision             text1        33F
-__initialization                    cinit        3F8
-__pbssBANK0                         bssBANK0     03E
-__pcstackBANK0                      cstackBANK0  020
-__pcstackCOMMON                     cstackCOMMON 000
-__pmaintext                         maintext     31D
-__ptext1                            text1        328
-__ptext2                            text2        33F
-__size_of_divisionEntera            (abs)        000
-__size_of_main                      (abs)        000
-__size_of_probarDivision            (abs)        000
-_divisionEntera                     text2        33F
-_main                               maintext     31D
-_probarDivision                     text1        328
-btemp                               (abs)        05E
-divisionEntera@count                cstackBANK0  02B
-divisionEntera@denominador          cstackBANK0  031
-divisionEntera@dividendo            cstackBANK0  033
-divisionEntera@dividendo1           cstackBANK0  020
-divisionEntera@divisor              cstackBANK0  02D
-divisionEntera@divisor1             cstackBANK0  022
-divisionEntera@resultado            cstackBANK0  024
-divisionEntera@resultadoFraccion    cstackBANK0  029
-divisionEntera@resultadoParteEntera cstackBANK0  027
-divisionEntera@temp                 cstackBANK0  02F
-divisionEntera@temp2                cstackBANK0  025
-end_of_initialization               cinit        3FD
-intlevel0                           functab      000
-intlevel1                           functab      000
-intlevel2                           functab      000
-intlevel3                           functab      000
-intlevel4                           functab      000
-intlevel5                           functab      000
-probarDivision@F17                  bssBANK0     03E
-probarDivision@operando1            cstackBANK0  035
-probarDivision@operando2            cstackBANK0  037
-probarDivision@resultado            cstackBANK0  03A
-reset_vec                           reset_vec    000
-stackhi                             (abs)        000
-stacklo                             (abs)        000
-start                               init         000
-start_initialization                cinit        3F8
-wtemp0                              (abs)        05E
+_GPIObits                       (abs)        0005
+_OPTION_REGbits                 (abs)        0081
+_TRISIO                         (abs)        0085
+__BbitbssBANK0                  bitbssBANK0  07FE
+__Habs1                         abs1         07FE
+__Hbank0                        bank0        07FE
+__Hbank1                        bank1        07FE
+__HbitbssBANK0                  bitbssBANK0  3FF0
+__HbssBANK0                     bssBANK0     07FE
+__Hcinit                        cinit        03FF
+__Hclrtext                      clrtext      07FE
+__Hcode                         code         07FE
+__Hcommon                       common       07FE
+__Hconfig                       config       0000
+__HcstackBANK0                  cstackBANK0  07FE
+__HcstackCOMMON                 cstackCOMMON 07FE
+__HdataBANK0                    dataBANK0    07FE
+__Heeprom_data                  eeprom_data  0000
+__Hend_init                     end_init     0001
+__Hfunctab                      functab      0000
+__HidataBANK0                   idataBANK0   07FE
+__Hidloc                        idloc        0000
+__Hinit                         init         0000
+__Hintentry                     intentry     0000
+__Hmaintext                     maintext     07FE
+__Hosccal                       osccal       03FF
+__Hpowerup                      powerup      0000
+__Hram                          ram          07FE
+__Hreset_vec                    reset_vec    0000
+__Hsfr0                         sfr0         07FE
+__Hsfr1                         sfr1         07FE
+__Hspace_0                      (abs)        3FF0
+__Hspace_1                      (abs)        07FE
+__Hspace_2                      (abs)        0000
+__Hspace_3                      (abs)        0000
+__Hstack                        stack        0000
+__Hstrings                      strings      07FE
+__Htext                         text         07FE
+__Labs1                         abs1         07FE
+__Lbank0                        bank0        07FE
+__Lbank1                        bank1        07FE
+__LbitbssBANK0                  bitbssBANK0  3FF0
+__LbssBANK0                     bssBANK0     07FE
+__Lcinit                        cinit        03F5
+__Lclrtext                      clrtext      07FE
+__Lcode                         code         07FE
+__Lcommon                       common       07FE
+__Lconfig                       config       0000
+__LcstackBANK0                  cstackBANK0  07FE
+__LcstackCOMMON                 cstackCOMMON 07FE
+__LdataBANK0                    dataBANK0    07FE
+__Leeprom_data                  eeprom_data  0000
+__Lend_init                     end_init     0000
+__Lfunctab                      functab      0000
+__LidataBANK0                   idataBANK0   07FE
+__Lidloc                        idloc        0000
+__Linit                         init         0000
+__Lintentry                     intentry     0000
+__Lmaintext                     maintext     07FE
+__Losccal                       osccal       03FF
+__Lpowerup                      powerup      0000
+__Lram                          ram          07FE
+__Lreset_vec                    reset_vec    0000
+__Lsfr0                         sfr0         07FE
+__Lsfr1                         sfr1         07FE
+__Lspace_0                      (abs)        0000
+__Lspace_1                      (abs)        0000
+__Lspace_2                      (abs)        0000
+__Lspace_3                      (abs)        0000
+__Lstack                        stack        0000
+__Lstrings                      strings      07FE
+__Ltext                         text         07FE
+__S0                            (abs)        03FF
+__S1                            (abs)        002F
+__S2                            (abs)        0000
+__S3                            (abs)        0000
+___int_sp                       stack        0000
+___latbits                      (abs)        0000
+___osccal_val                   osccal       03FF
+___sp                           stack        0000
+__end_of__initialization        cinit        03FD
+__end_of_configuracion          text5        033F
+__end_of_divisionEntera         text4        0399
+__end_of_leerDatos              text1        03F5
+__end_of_main                   maintext     0337
+__end_of_mostrarResultado       text2        034F
+__end_of_parpadearLEDResultado  text3        0366
+__initialization                cinit        03F5
+__pbitbssBANK0                  bitbssBANK0  0170
+__pbssBANK0                     bssBANK0     0029
+__pcstackBANK0                  cstackBANK0  0020
+__pcstackCOMMON                 cstackCOMMON 0000
+__pdataBANK0                    dataBANK0    002C
+__pidataBANK0                   idataBANK0   0330
+__pmaintext                     maintext     0332
+__ptext1                        text1        0399
+__ptext2                        text2        033F
+__ptext3                        text3        034F
+__ptext4                        text4        0366
+__ptext5                        text5        0337
+__size_of_configuracion         (abs)        0000
+__size_of_divisionEntera        (abs)        0000
+__size_of_leerDatos             (abs)        0000
+__size_of_main                  (abs)        0000
+__size_of_mostrarResultado      (abs)        0000
+__size_of_parpadearLEDResultado (abs)        0000
+_configuracion                  text5        0337
+_divisionEntera                 text4        0366
+_flagFlanco                     bitbssBANK0  0170
+_leerDatos                      text1        0399
+_main                           maintext     0332
+_mostrarResultado               text2        033F
+_operando1                      bssBANK0     002B
+_operando2                      bssBANK0     002A
+_parpadearLEDResultado          text3        034F
+_resultado                      bssBANK0     0029
+_tiempoParpadeo                 dataBANK0    002C
+btemp                           (abs)        005E
+divisionEntera@temp             cstackBANK0  0021
+end_of_initialization           cinit        03FD
+intlevel0                       functab      0000
+intlevel1                       functab      0000
+intlevel2                       functab      0000
+intlevel3                       functab      0000
+intlevel4                       functab      0000
+intlevel5                       functab      0000
+leerDatos@espera                cstackBANK0  0025
+reset_vec                       reset_vec    0000
+stackhi                         (abs)        0000
+stacklo                         (abs)        0000
+start                           init         0000
+start_initialization            cinit        03F5
+wtemp0                          (abs)        005E
 
 
 FUNCTION INFORMATION:
 
  *************** function _main *****************
  Defined at:
-		line 49 in file "main.c"
+		line 102 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
-                  2   26[None  ] int 
+                  2   59[None  ] int 
  Registers used:
-		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+		wreg, status,2, status,0, pclath, cstack
  Tracked objects:
 		On entry : 
 		On exit  : 
@@ -249,81 +282,160 @@ FUNCTION INFORMATION:
       Temps:          0       0
       Totals:         0       0
 Total ram usage:        0 bytes
- Hardware stack levels required when called:    2
+ Hardware stack levels required when called:    3
  This function calls:
-		_probarDivision
+		_configuracion
+		_leerDatos
  This function is called by:
 		Startup code after reset
  This function uses a non-reentrant model
 
 
- *************** function _probarDivision *****************
+ *************** function _leerDatos *****************
  Defined at:
-		line 44 in file "main.c"
+		line 76 in file "main.c"
  Parameters:    Size  Location     Type
-  operando1       2   21[BANK0 ] unsigned int 
-  operando2       2   23[BANK0 ] unsigned int 
+		None
  Auto vars:     Size  Location     Type
-  resultado       4   26[BANK0 ] unsigned int [2]
+  espera          4    5[BANK0 ] long 
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
-		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+		wreg, status,2, status,0, pclath, cstack
  Tracked objects:
 		On entry : 
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMMON   BANK0
-      Params:         0       4
+      Params:         0       0
       Locals:         0       4
       Temps:          0       1
-      Totals:         0       9
-Total ram usage:        9 bytes
+      Totals:         0       5
+Total ram usage:        5 bytes
  Hardware stack levels used:    1
- Hardware stack levels required when called:    1
+ Hardware stack levels required when called:    2
  This function calls:
-		_divisionEntera
+		_mostrarResultado
  This function is called by:
 		_main
  This function uses a non-reentrant model
 
 
- *************** function _divisionEntera *****************
+ *************** function _mostrarResultado *****************
  Defined at:
-		line 1 in file "main.c"
+		line 66 in file "main.c"
  Parameters:    Size  Location     Type
-  dividendo1      2    0[BANK0 ] unsigned int 
-  divisor1        2    2[BANK0 ] unsigned int 
-  resultado       1    4[BANK0 ] PTR PTR unsigned int 
-		 -> probarDivision@resultado(4), 
+		None
  Auto vars:     Size  Location     Type
-  count           2   11[BANK0 ] int 
-  dividendo       2   19[BANK0 ] unsigned int 
-  denominador     2   17[BANK0 ] unsigned int 
-  temp            2   15[BANK0 ] unsigned int 
-  divisor         2   13[BANK0 ] unsigned int 
-  resultadoFra    2    9[BANK0 ] unsigned int 
-  resultadoPar    2    7[BANK0 ] unsigned int 
-  temp2           2    5[BANK0 ] unsigned int 
+		None
  Return value:  Size  Location     Type
                   1    wreg      void 
  Registers used:
-		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1
+		wreg, status,2, status,0, pclath, cstack
  Tracked objects:
 		On entry : 
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMMON   BANK0
-      Params:         0       5
-      Locals:         0      16
+      Params:         0       0
+      Locals:         0       0
       Temps:          0       0
-      Totals:         0      21
-Total ram usage:       21 bytes
+      Totals:         0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    1
+ This function calls:
+		_divisionEntera
+		_parpadearLEDResultado
+ This function is called by:
+		_leerDatos
+ This function uses a non-reentrant model
+
+
+ *************** function _parpadearLEDResultado *****************
+ Defined at:
+		line 59 in file "main.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0
+      Params:         0       0
+      Locals:         0       0
+      Temps:          0       4
+      Totals:         0       4
+Total ram usage:        4 bytes
  Hardware stack levels used:    1
  This function calls:
 		Nothing
  This function is called by:
-		_probarDivision
+		_mostrarResultado
+ This function uses a non-reentrant model
+
+
+ *************** function _divisionEntera *****************
+ Defined at:
+		line 33 in file "main.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  temp            1    1[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0
+      Params:         0       0
+      Locals:         0       1
+      Temps:          0       1
+      Totals:         0       2
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_mostrarResultado
+ This function uses a non-reentrant model
+
+
+ *************** function _configuracion *****************
+ Defined at:
+		line 18 in file "main.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0
+      Params:         0       0
+      Locals:         0       0
+      Temps:          0       0
+      Totals:         0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_main
  This function uses a non-reentrant model
 
 
@@ -332,14 +444,17 @@ MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 shared
-		__initialization		CODE           	03F8	0000	6
+		__initialization		CODE           	03F5	0000	9
 
-shared estimated size: 6
+shared estimated size: 9
 
 main.c
-		_divisionEntera		CODE           	033F	0000	186
-		_main          		CODE           	031D	0000	12
-		_probarDivision		CODE           	0328	0000	24
+		_divisionEntera		CODE           	0366	0000	52
+		_mostrarResultado		CODE           	033F	0000	17
+		_configuracion 		CODE           	0337	0000	9
+		_parpadearLEDResultado		CODE           	034F	0000	24
+		_main          		CODE           	0332	0000	6
+		_leerDatos     		CODE           	0399	0000	93
 
-main.c estimated size: 222
+main.c estimated size: 201
 

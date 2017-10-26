@@ -1,635 +1,1174 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V1.43 build -156212558 
-                                                                                               Fri Oct 20 17:02:04 2017
+                                                                                               Thu Oct 26 11:01:39 2017
 
 Microchip Technology Omniscient Code Generator v1.43 (Free mode) build 201707250354
-     1                           	processor	12F675
-     2                           	opt	pw 120
-     3                           	opt	lm
-     4                           	psect	cinit,global,class=CODE,merge=1,delta=2
-     5                           	psect	bssBANK0,global,class=BANK0,space=1,delta=1
-     6                           	psect	cstackCOMMON,global,class=COMMON,space=1,delta=1
-     7                           	psect	cstackBANK0,global,class=BANK0,space=1,delta=1
-     8                           	psect	maintext,global,class=CODE,split=1,delta=2
-     9                           	psect	text1,local,class=CODE,merge=1,delta=2
-    10                           	psect	text2,local,class=CODE,merge=1,delta=2
-    11                           	dabs	1,0x5E,2
-    12  0000                     
-    13                           ; Version 1.43
-    14                           ; Generated 25/07/2017 GMT
-    15                           ; 
-    16                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
-    17                           ; All rights reserved.
-    18                           ; 
-    19                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
-      +                          ip").
+     1  0000                     
+      + 0000                     
+     2                           ; Version 1.43
+     3                           ; Generated 25/07/2017 GMT
+     4                           
+     5                           ; 
+     6                           ; Copyright © 2017, Microchip Technology Inc. and its subsidiaries ("Microchip")
+     7                           ; All rights reserved.
+     8                           ; 
+     9                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+                                 ip").
+    10                           ; 
+    11                           ; Redistribution and use in source and binary forms, with or without modification, are
+    12                           ; permitted provided that the following conditions are met:
+    13                           ; 
+    14                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+                                 t of
+    15                           ;        conditions and the following disclaimer.
+    16                           ; 
+    17                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+                                 list
+    18                           ;        of conditions and the following disclaimer in the documentation and/or other
+    19                           ;        materials provided with the distribution.
     20                           ; 
-    21                           ; Redistribution and use in source and binary forms, with or without modification, are
-    22                           ; permitted provided that the following conditions are met:
+    21                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+                                 is
+    22                           ;        software without specific prior written permission.
     23                           ; 
-    24                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
-      +                          t of
-    25                           ;        conditions and the following disclaimer.
-    26                           ; 
-    27                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
-      +                          list
-    28                           ;        of conditions and the following disclaimer in the documentation and/or other
-    29                           ;        materials provided with the distribution.
-    30                           ; 
-    31                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
-      +                          is
-    32                           ;        software without specific prior written permission.
-    33                           ; 
-    34                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    35                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
-      +                          OR
-    36                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
-      +                          T,
-    37                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
-    38                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
-    39                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
-      +                          RICT
-    40                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
-      +                          SE OF
-    41                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    42                           ; 
-    43                           ; 
-    44                           ; Code-generator required, PIC12F675 Definitions
-    45                           ; 
-    46                           ; SFR Addresses
-    47  0000                     
-    48                           	psect	cinit
-    49  03F8                     start_initialization:	
-    50                           ; #config settings
-    51                           
-    52  03F8                     __initialization:	
-    53                           
-    54                           ; Clear objects allocated to BANK0
-    55  03F8  1283               	bcf	3,5	;RP0=0, select bank0
-    56  03F9  01BE               	clrf	__pbssBANK0& (0+127)
-    57  03FA  01BF               	clrf	(__pbssBANK0+1)& (0+127)
-    58  03FB  01C0               	clrf	(__pbssBANK0+2)& (0+127)
-    59  03FC  01C1               	clrf	(__pbssBANK0+3)& (0+127)
-    60  03FD                     end_of_initialization:	
-    61                           ;End of C runtime variable initialization code
-    62                           
-    63  03FD                     __end_of__initialization:	
-    64  03FD  0183               	clrf	3
-    65  03FE  2B1D               	ljmp	_main	;jump to C main() function
-    66                           
-    67                           	psect	bssBANK0
-    68  003E                     __pbssBANK0:	
-    69  003E                     probarDivision@F17:	
-    70  003E                     	ds	4
-    71                           
-    72                           	psect	cstackCOMMON
-    73  0000                     __pcstackCOMMON:	
-    74  0000                     ??_divisionEntera:	
-    75  0000                     ??_main:	
-    76                           ; 1 bytes @ 0x0
-    77                           
-    78                           
-    79                           	psect	cstackBANK0
-    80  0020                     __pcstackBANK0:	
-    81                           ; 1 bytes @ 0x0
-    82                           
-    83  0020                     ?_divisionEntera:	
-    84  0020                     ?_main:	
-    85                           ; 1 bytes @ 0x0
-    86                           
-    87  0020                     divisionEntera@dividendo1:	
-    88                           ; 2 bytes @ 0x0
-    89                           
-    90                           
-    91                           ; 2 bytes @ 0x0
-    92  0020                     	ds	2
-    93  0022                     divisionEntera@divisor1:	
-    94                           
-    95                           ; 2 bytes @ 0x2
-    96  0022                     	ds	2
-    97  0024                     divisionEntera@resultado:	
-    98                           
-    99                           ; 1 bytes @ 0x4
-   100  0024                     	ds	1
-   101  0025                     divisionEntera@temp2:	
-   102                           
-   103                           ; 2 bytes @ 0x5
-   104  0025                     	ds	2
-   105  0027                     divisionEntera@resultadoParteEntera:	
-   106                           
-   107                           ; 2 bytes @ 0x7
-   108  0027                     	ds	2
-   109  0029                     divisionEntera@resultadoFraccion:	
-   110                           
-   111                           ; 2 bytes @ 0x9
-   112  0029                     	ds	2
-   113  002B                     divisionEntera@count:	
-   114                           
-   115                           ; 2 bytes @ 0xB
-   116  002B                     	ds	2
-   117  002D                     divisionEntera@divisor:	
-   118                           
-   119                           ; 2 bytes @ 0xD
-   120  002D                     	ds	2
-   121  002F                     divisionEntera@temp:	
-   122                           
-   123                           ; 2 bytes @ 0xF
-   124  002F                     	ds	2
-   125  0031                     divisionEntera@denominador:	
-   126                           
-   127                           ; 2 bytes @ 0x11
-   128  0031                     	ds	2
-   129  0033                     divisionEntera@dividendo:	
-   130                           
-   131                           ; 2 bytes @ 0x13
-   132  0033                     	ds	2
-   133  0035                     ?_probarDivision:	
-   134  0035                     probarDivision@operando1:	
-   135                           ; 1 bytes @ 0x15
-   136                           
-   137                           
-   138                           ; 2 bytes @ 0x15
-   139  0035                     	ds	2
-   140  0037                     probarDivision@operando2:	
-   141                           
-   142                           ; 2 bytes @ 0x17
-   143  0037                     	ds	2
-   144  0039                     ??_probarDivision:	
-   145                           
-   146                           ; 1 bytes @ 0x19
-   147  0039                     	ds	1
-   148  003A                     probarDivision@resultado:	
-   149                           
-   150                           ; 4 bytes @ 0x1A
-   151  003A                     	ds	4
-   152                           
-   153                           	psect	maintext
-   154  031D                     __pmaintext:	
-   155 ;;
-   156 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
-   157 ;;
-   158 ;; *************** function _main *****************
-   159 ;; Defined at:
-   160 ;;		line 49 in file "main.c"
-   161 ;; Parameters:    Size  Location     Type
-   162 ;;		None
-   163 ;; Auto vars:     Size  Location     Type
-   164 ;;		None
-   165 ;; Return value:  Size  Location     Type
-   166 ;;                  2   26[None  ] int 
-   167 ;; Registers used:
-   168 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
-   169 ;; Tracked objects:
-   170 ;;		On entry : B00/0
-   171 ;;		On exit  : 0/0
-   172 ;;		Unchanged: 0/0
-   173 ;; Data sizes:     COMMON   BANK0
-   174 ;;      Params:         0       0
-   175 ;;      Locals:         0       0
-   176 ;;      Temps:          0       0
-   177 ;;      Totals:         0       0
-   178 ;;Total ram usage:        0 bytes
-   179 ;; Hardware stack levels required when called:    2
-   180 ;; This function calls:
-   181 ;;		_probarDivision
-   182 ;; This function is called by:
-   183 ;;		Startup code after reset
-   184 ;; This function uses a non-reentrant model
-   185 ;;
-   186                           
-   187                           
-   188                           ;psect for function _main
-   189  031D                     _main:	
-   190                           
-   191                           ;main.c: 51: probarDivision(43, 4);
-   192                           
-   193                           ;incstack = 0
-   194                           ; Regs used in _main: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
-   195  031D  302B               	movlw	43
-   196  031E  1283               	bcf	3,5	;RP0=0, select bank0
-   197  031F  00B5               	movwf	probarDivision@operando1
-   198  0320  3000               	movlw	0
-   199  0321  00B6               	movwf	probarDivision@operando1+1
-   200  0322  3004               	movlw	4
-   201  0323  00B7               	movwf	probarDivision@operando2
-   202  0324  3000               	movlw	0
-   203  0325  00B8               	movwf	probarDivision@operando2+1
-   204  0326  2328               	fcall	_probarDivision
-   205  0327  2800               	ljmp	start
-   206  0328                     __end_of_main:	
-   207                           
-   208                           	psect	text1
-   209  0328                     __ptext1:	
-   210 ;; *************** function _probarDivision *****************
-   211 ;; Defined at:
-   212 ;;		line 44 in file "main.c"
-   213 ;; Parameters:    Size  Location     Type
-   214 ;;  operando1       2   21[BANK0 ] unsigned int 
-   215 ;;  operando2       2   23[BANK0 ] unsigned int 
-   216 ;; Auto vars:     Size  Location     Type
-   217 ;;  resultado       4   26[BANK0 ] unsigned int [2]
-   218 ;; Return value:  Size  Location     Type
-   219 ;;                  1    wreg      void 
-   220 ;; Registers used:
-   221 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
-   222 ;; Tracked objects:
-   223 ;;		On entry : 0/0
-   224 ;;		On exit  : 0/0
-   225 ;;		Unchanged: 0/0
-   226 ;; Data sizes:     COMMON   BANK0
-   227 ;;      Params:         0       4
-   228 ;;      Locals:         0       4
-   229 ;;      Temps:          0       1
-   230 ;;      Totals:         0       9
-   231 ;;Total ram usage:        9 bytes
-   232 ;; Hardware stack levels used:    1
-   233 ;; Hardware stack levels required when called:    1
-   234 ;; This function calls:
-   235 ;;		_divisionEntera
-   236 ;; This function is called by:
-   237 ;;		_main
-   238 ;; This function uses a non-reentrant model
-   239 ;;
-   240                           
-   241                           
-   242                           ;psect for function _probarDivision
-   243  0328                     _probarDivision:	
-   244                           
-   245                           ;main.c: 45: unsigned int resultado[2] = { 0, 0 };
-   246                           
-   247                           ;incstack = 0
-   248                           ; Regs used in _probarDivision: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
-   249  0328  1283               	bcf	3,5	;RP0=0, select bank0
-   250  0329  0841               	movf	probarDivision@F17+3,w
-   251  032A  00BD               	movwf	probarDivision@resultado+3
-   252  032B  0840               	movf	probarDivision@F17+2,w
-   253  032C  00BC               	movwf	probarDivision@resultado+2
-   254  032D  083F               	movf	probarDivision@F17+1,w
-   255  032E  00BB               	movwf	probarDivision@resultado+1
-   256  032F  083E               	movf	probarDivision@F17,w
-   257  0330  00BA               	movwf	probarDivision@resultado
-   258                           
-   259                           ;main.c: 46: divisionEntera(operando1, operando2, &resultado);
-   260  0331  0836               	movf	probarDivision@operando1+1,w
-   261  0332  00A1               	movwf	divisionEntera@dividendo1+1
-   262  0333  0835               	movf	probarDivision@operando1,w
-   263  0334  00A0               	movwf	divisionEntera@dividendo1
-   264  0335  0838               	movf	probarDivision@operando2+1,w
-   265  0336  00A3               	movwf	divisionEntera@divisor1+1
-   266  0337  0837               	movf	probarDivision@operando2,w
-   267  0338  00A2               	movwf	divisionEntera@divisor1
-   268  0339  303A               	movlw	(low (probarDivision@resultado| 0))& (0+255)
-   269  033A  00B9               	movwf	??_probarDivision
-   270  033B  0839               	movf	??_probarDivision,w
-   271  033C  00A4               	movwf	divisionEntera@resultado
-   272  033D  233F               	fcall	_divisionEntera
-   273  033E  0008               	return
-   274  033F                     __end_of_probarDivision:	
+    24                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+
+    25                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+                                 OR
+    26                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+                                 T,
+    27                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+                                 
+    28                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+                                 
+    29                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+                                 RICT
+    30                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+                                 SE OF
+    31                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    32                           ; 
+    33                           
+    34                           
+    35                           ; 
+    36                           ; Code-generator required, PIC12F675 Definitions
+    37                           ; 
+    38  0004                     fsr0 equ 04h
+    39  0004                     indf equ 00h
+    40  0000                     indf0 equ 00h
+    41  0000                     pc equ 02h
+    42  0002                     pcl equ 02h
+    43  0002                     pclath equ 0Ah
+    44  000A                     status equ 03h
+    45  0003                     
+     2                           opt pagewidth 120
+     3  0000                     clrz	macro
+     4                           	bcf	3,2
+     5                           	endm
+     6  0000                     setc	macro
+     7                           	bsf	3,0
+     8                           	endm
+     9  0000                     setz	macro
+    10                           	bsf	3,2
+    11                           	endm
+    12  0000                     skipc	macro
+    13                           	btfss	3,0
+    14                           	endm
+    15  0000                     skipz	macro
+    16                           	btfss	3,2
+    17                           	endm
+    18  0000                     skipnc	macro
+    19                           	btfsc	3,0
+    20                           	endm
+    21  0000                     skipnz	macro
+    22                           	btfsc	3,2
+    23                           	endm
+    24  0000                     # 52 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    25                           INDF equ 00h ;# 
+    26  0000                     # 72 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    27                           TMR0 equ 01h ;# 
+    28  0001                     # 92 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    29                           PCL equ 02h ;# 
+    30  0002                     # 112 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    31                           STATUS equ 03h ;# 
+    32  0003                     # 198 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    33                           FSR equ 04h ;# 
+    34  0004                     # 218 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    35                           GPIO equ 05h ;# 
+    36  0005                     # 306 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    37                           PCLATH equ 0Ah ;# 
+    38  000A                     # 326 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    39                           INTCON equ 0Bh ;# 
+    40  000B                     # 404 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    41                           PIR1 equ 0Ch ;# 
+    42  000C                     # 452 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    43                           TMR1 equ 0Eh ;# 
+    44  000E                     # 459 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    45                           TMR1L equ 0Eh ;# 
+    46  000E                     # 479 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    47                           TMR1H equ 0Fh ;# 
+    48  000F                     # 499 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    49                           T1CON equ 010h ;# 
+    50  0010                     # 564 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    51                           CMCON equ 019h ;# 
+    52  0019                     # 623 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    53                           ADRESH equ 01Eh ;# 
+    54  001E                     # 643 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    55                           ADCON0 equ 01Fh ;# 
+    56  001F                     # 727 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    57                           OPTION_REG equ 081h ;# 
+    58  0081                     # 797 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    59                           TRISIO equ 085h ;# 
+    60  0085                     # 847 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    61                           PIE1 equ 08Ch ;# 
+    62  008C                     # 895 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    63                           PCON equ 08Eh ;# 
+    64  008E                     # 929 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    65                           OSCCAL equ 090h ;# 
+    66  0090                     # 989 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    67                           WPU equ 095h ;# 
+    68  0095                     # 1034 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    69                           IOC equ 096h ;# 
+    70  0096                     # 1039 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    71                           IOCB equ 096h ;# 
+    72  0096                     # 1208 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    73                           VRCON equ 099h ;# 
+    74  0099                     # 1268 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    75                           EEDATA equ 09Ah ;# 
+    76  009A                     # 1273 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    77                           EEDAT equ 09Ah ;# 
+    78  009A                     # 1306 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    79                           EEADR equ 09Bh ;# 
+    80  009B                     # 1326 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    81                           EECON1 equ 09Ch ;# 
+    82  009C                     # 1364 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    83                           EECON2 equ 09Dh ;# 
+    84  009D                     # 1384 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    85                           ADRESL equ 09Eh ;# 
+    86  009E                     # 1404 "C:\Program Files (x86)\Microchip\xc8\v1.43\include\pic12f675.h"
+    87                           ANSEL equ 09Fh ;# 
+    88  009F                     	FNCALL	_main,_configuracion
+    89                           	FNCALL	_main,_leerDatos
+    90                           	FNCALL	_leerDatos,_mostrarResultado
+    91                           	FNCALL	_mostrarResultado,_divisionEntera
+    92                           	FNCALL	_mostrarResultado,_parpadearLEDResultado
+    93                           	FNROOT	_main
+    94                           	global	_tiempoParpadeo
+    95                           psect	idataBANK0,class=CODE,space=0,delta=2,noexec
+    96                           global __pidataBANK0
+    97                           __pidataBANK0:
+    98  0330                     	file	"main.c"
+    99                           	line	16
+   100                           
+   101                           ;initializer for _tiempoParpadeo
+   102                           	retlw	0E8h
+   103  0330  34E8               	retlw	03h
+   104  0331  3403               
+   105                           	global	_resultado
+   106                           	global	_operando2
+   107                           	global	_operando1
+   108                           	global	_flagFlanco
+   109                           	global	_GPIObits
+   110                           _GPIObits	set	0x5
+   111  0005                     	global	_OPTION_REGbits
+   112                           _OPTION_REGbits	set	0x81
+   113  0081                     	global	_TRISIO
+   114                           _TRISIO	set	0x85
+   115  0085                     ; #config settings
+   116                           	file	"C:\Users\acpat\AppData\Local\Temp\s5e0."
+   117                           	line	#
+   118                           psect cinit,class=CODE,delta=2
+   119                           global start_initialization
+   120                           start_initialization:
+   121  03F5                     
+   122                           global __initialization
+   123                           __initialization:
+   124  03F5                     psect	bitbssBANK0,class=BANK0,bit,space=1,noexec
+   125                           global __pbitbssBANK0
+   126                           __pbitbssBANK0:
+   127  0170                     _flagFlanco:
+   128  0170                            ds      1
+   129  0170                     
+   130                           psect	bssBANK0,class=BANK0,space=1,noexec
+   131                           global __pbssBANK0
+   132                           __pbssBANK0:
+   133  0029                     _resultado:
+   134  0029                            ds      1
+   135  0029                     
+   136                           _operando2:
+   137  002A                            ds      1
+   138  002A                     
+   139                           _operando1:
+   140  002B                            ds      1
+   141  002B                     
+   142                           psect	dataBANK0,class=BANK0,space=1,noexec
+   143                           global __pdataBANK0
+   144                           __pdataBANK0:
+   145  002C                     	file	"main.c"
+   146                           	line	16
+   147                           _tiempoParpadeo:
+   148  002C                            ds      2
+   149  002C                     
+   150                           	file	"C:\Users\acpat\AppData\Local\Temp\s5e0."
+   151                           	line	#
+   152                           ; Initialize objects allocated to BANK0
+   153                           	global __pidataBANK0
+   154                           psect cinit,class=CODE,delta=2,merge=1
+   155                           	fcall	__pidataBANK0+0		;fetch initializer
+   156  03F5  2330               	movwf	__pdataBANK0+0&07fh		
+   157  03F6  00AC               	fcall	__pidataBANK0+1		;fetch initializer
+   158  03F7  2331               	movwf	__pdataBANK0+1&07fh		
+   159  03F8  00AD               	line	#
+   160                           ; Clear objects allocated to BANK0
+   161                           psect cinit,class=CODE,delta=2,merge=1
+   162                           	clrf	((__pbssBANK0)+0)&07Fh
+   163  03F9  01A9               	clrf	((__pbssBANK0)+1)&07Fh
+   164  03FA  01AA               	clrf	((__pbssBANK0)+2)&07Fh
+   165  03FB  01AB               ; Clear objects allocated to BITBANK0
+   166                           psect cinit,class=CODE,delta=2,merge=1
+   167                           	clrf	((__pbitbssBANK0/8)+0)&07Fh
+   168  03FC  01AE               psect cinit,class=CODE,delta=2,merge=1
+   169                           global end_of_initialization,__end_of__initialization
+   170                           
+   171                           ;End of C runtime variable initialization code
+   172                           
+   173                           end_of_initialization:
+   174  03FD                     __end_of__initialization:
+   175  03FD                     clrf status
+   176  03FD  0183               ljmp _main	;jump to C main() function
+   177  03FE  2B32               psect	cstackCOMMON,class=COMMON,space=1,noexec
+   178                           global __pcstackCOMMON
+   179                           __pcstackCOMMON:
+   180  0000                     ??_configuracion:	; 1 bytes @ 0x0
+   181  0000                     ??_mostrarResultado:	; 1 bytes @ 0x0
+   182  0000                     ??_main:	; 1 bytes @ 0x0
+   183  0000                     psect	cstackBANK0,class=BANK0,space=1,noexec
+   184                           global __pcstackBANK0
+   185                           __pcstackBANK0:
+   186  0020                     ?_configuracion:	; 1 bytes @ 0x0
+   187  0020                     ?_divisionEntera:	; 1 bytes @ 0x0
+   188  0020                     ??_divisionEntera:	; 1 bytes @ 0x0
+   189  0020                     ?_parpadearLEDResultado:	; 1 bytes @ 0x0
+   190  0020                     ??_parpadearLEDResultado:	; 1 bytes @ 0x0
+   191  0020                     ?_mostrarResultado:	; 1 bytes @ 0x0
+   192  0020                     ?_leerDatos:	; 1 bytes @ 0x0
+   193  0020                     ?_main:	; 2 bytes @ 0x0
+   194  0020                     	ds	1
+   195  0020                     	global	divisionEntera@temp
+   196                           divisionEntera@temp:	; 1 bytes @ 0x1
+   197  0021                     	ds	3
+   198  0021                     ??_leerDatos:	; 1 bytes @ 0x4
+   199  0024                     	ds	1
+   200  0024                     	global	leerDatos@espera
+   201                           leerDatos@espera:	; 4 bytes @ 0x5
+   202  0025                     	ds	4
+   203  0025                     ;!
+   204                           ;!Data Sizes:
+   205                           ;!    Strings     0
+   206                           ;!    Constant    0
+   207                           ;!    Data        2
+   208                           ;!    BSS         3
+   209                           ;!    Persistent  0
+   210                           ;!    Stack       0
+   211                           ;!
+   212                           ;!Auto Spaces:
+   213                           ;!    Space          Size  Autos    Used
+   214                           ;!    COMMON            0      0       0
+   215                           ;!    BANK0            62      9      15
+   216                           
+   217                           ;!
+   218                           ;!Pointer List with Targets:
+   219                           ;!
+   220                           ;!    None.
+   221                           
+   222                           
+   223                           ;!
+   224                           ;!Critical Paths under _main in COMMON
+   225                           ;!
+   226                           ;!    None.
+   227                           ;!
+   228                           ;!Critical Paths under _main in BANK0
+   229                           ;!
+   230                           ;!    _main->_leerDatos
+   231                           ;!    _mostrarResultado->_parpadearLEDResultado
+   232                           
+   233 ;;
+   234 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   235 ;;
+   236                           
+   237                           ;!
+   238                           ;!Call Graph Tables:
+   239                           ;!
+   240                           ;! ---------------------------------------------------------------------------------
+   241                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   242                           ;! ---------------------------------------------------------------------------------
+   243                           ;! (0) _main                                                 0     0      0      94
+   244                           ;!                      _configuracion
+   245                           ;!                          _leerDatos
+   246                           ;! ---------------------------------------------------------------------------------
+   247                           ;! (1) _leerDatos                                            5     5      0      94
+   248                           ;!                                              4 BANK0      5     5      0
+   249                           ;!                   _mostrarResultado
+   250                           ;! ---------------------------------------------------------------------------------
+   251                           ;! (2) _mostrarResultado                                     0     0      0      48
+   252                           ;!                     _divisionEntera
+   253                           ;!              _parpadearLEDResultado
+   254                           ;! ---------------------------------------------------------------------------------
+   255                           ;! (3) _parpadearLEDResultado                                4     4      0       0
+   256                           ;!                                              0 BANK0      4     4      0
+   257                           ;! ---------------------------------------------------------------------------------
+   258                           ;! (3) _divisionEntera                                       2     2      0      48
+   259                           ;!                                              0 BANK0      2     2      0
+   260                           ;! ---------------------------------------------------------------------------------
+   261                           ;! (1) _configuracion                                        0     0      0       0
+   262                           ;! ---------------------------------------------------------------------------------
+   263                           ;! Estimated maximum stack depth 3
+   264                           ;! ---------------------------------------------------------------------------------
+   265                           ;!
+   266                           ;! Call Graph Graphs:
+   267                           ;!
+   268                           ;! _main (ROOT)
+   269                           ;!   _configuracion
+   270                           ;!   _leerDatos
+   271                           ;!     _mostrarResultado
+   272                           ;!       _divisionEntera
+   273                           ;!       _parpadearLEDResultado
+   274                           ;!
    275                           
-   276                           	psect	text2
-   277  033F                     __ptext2:	
-   278 ;; *************** function _divisionEntera *****************
-   279 ;; Defined at:
-   280 ;;		line 1 in file "main.c"
-   281 ;; Parameters:    Size  Location     Type
-   282 ;;  dividendo1      2    0[BANK0 ] unsigned int 
-   283 ;;  divisor1        2    2[BANK0 ] unsigned int 
-   284 ;;  resultado       1    4[BANK0 ] PTR PTR unsigned int 
-   285 ;;		 -> probarDivision@resultado(4), 
-   286 ;; Auto vars:     Size  Location     Type
-   287 ;;  count           2   11[BANK0 ] int 
-   288 ;;  dividendo       2   19[BANK0 ] unsigned int 
-   289 ;;  denominador     2   17[BANK0 ] unsigned int 
-   290 ;;  temp            2   15[BANK0 ] unsigned int 
-   291 ;;  divisor         2   13[BANK0 ] unsigned int 
-   292 ;;  resultadoFra    2    9[BANK0 ] unsigned int 
-   293 ;;  resultadoPar    2    7[BANK0 ] unsigned int 
-   294 ;;  temp2           2    5[BANK0 ] unsigned int 
-   295 ;; Return value:  Size  Location     Type
-   296 ;;                  1    wreg      void 
-   297 ;; Registers used:
-   298 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1
-   299 ;; Tracked objects:
-   300 ;;		On entry : 0/0
-   301 ;;		On exit  : 0/0
-   302 ;;		Unchanged: 0/0
-   303 ;; Data sizes:     COMMON   BANK0
-   304 ;;      Params:         0       5
-   305 ;;      Locals:         0      16
-   306 ;;      Temps:          0       0
-   307 ;;      Totals:         0      21
-   308 ;;Total ram usage:       21 bytes
-   309 ;; Hardware stack levels used:    1
-   310 ;; This function calls:
-   311 ;;		Nothing
-   312 ;; This function is called by:
-   313 ;;		_probarDivision
-   314 ;; This function uses a non-reentrant model
-   315 ;;
-   316                           
-   317                           
-   318                           ;psect for function _divisionEntera
-   319  033F                     _divisionEntera:	
-   320                           
-   321                           ;main.c: 2: unsigned int denominador = divisor1;
-   322                           
-   323                           ;incstack = 0
-   324                           ; Regs used in _divisionEntera: [wreg-fsr0h+status,2+status,0+btemp+1]
-   325  033F  1283               	bcf	3,5	;RP0=0, select bank0
-   326  0340  0823               	movf	divisionEntera@divisor1+1,w
-   327  0341  00B2               	movwf	divisionEntera@denominador+1
-   328  0342  0822               	movf	divisionEntera@divisor1,w
-   329  0343  00B1               	movwf	divisionEntera@denominador
-   330                           
-   331                           ;main.c: 3: unsigned int temp = 1;
-   332  0344  3001               	movlw	1
-   333  0345  00AF               	movwf	divisionEntera@temp
-   334  0346  3000               	movlw	0
-   335  0347  00B0               	movwf	divisionEntera@temp+1
-   336                           
-   337                           ;main.c: 4: unsigned int temp2 = 0x80000000;
-   338  0348  01A5               	clrf	divisionEntera@temp2
-   339  0349  01A6               	clrf	divisionEntera@temp2+1
-   340                           
-   341                           ;main.c: 5: unsigned int resultadoParteEntera = 0;
-   342  034A  01A7               	clrf	divisionEntera@resultadoParteEntera
-   343  034B  01A8               	clrf	divisionEntera@resultadoParteEntera+1
-   344                           
-   345                           ;main.c: 6: unsigned int resultadoFraccion = 0;
-   346  034C  01A9               	clrf	divisionEntera@resultadoFraccion
-   347  034D  01AA               	clrf	divisionEntera@resultadoFraccion+1
-   348                           
-   349                           ;main.c: 7: unsigned int dividendo = dividendo1;
-   350  034E  0821               	movf	divisionEntera@dividendo1+1,w
-   351  034F  00B4               	movwf	divisionEntera@dividendo+1
-   352  0350  0820               	movf	divisionEntera@dividendo1,w
-   353  0351  00B3               	movwf	divisionEntera@dividendo
-   354                           
-   355                           ;main.c: 8: unsigned int divisor = divisor1;
-   356  0352  0823               	movf	divisionEntera@divisor1+1,w
-   357  0353  00AE               	movwf	divisionEntera@divisor+1
-   358  0354  0822               	movf	divisionEntera@divisor1,w
-   359  0355  00AD               	movwf	divisionEntera@divisor
-   360  0356                     l3:	
-   361                           ;main.c: 10: while (denominador <= dividendo) {
-   362                           
-   363  0356  0832               	movf	divisionEntera@denominador+1,w
-   364  0357  0234               	subwf	divisionEntera@dividendo+1,w
-   365  0358  1D03               	skipz
-   366  0359  2B5C               	goto	u195
-   367  035A  0831               	movf	divisionEntera@denominador,w
-   368  035B  0233               	subwf	divisionEntera@dividendo,w
-   369  035C                     u195:	
-   370  035C  1C03               	btfss	3,0
-   371  035D  2B6D               	goto	l581
-   372                           
-   373                           ;main.c: 11: denominador <<= 1;
-   374  035E  3001               	movlw	1
-   375  035F                     u175:	
-   376  035F  1003               	clrc
-   377  0360  0DB1               	rlf	divisionEntera@denominador,f
-   378  0361  0DB2               	rlf	divisionEntera@denominador+1,f
-   379  0362  3EFF               	addlw	-1
-   380  0363  1D03               	skipz
-   381  0364  2B5F               	goto	u175
-   382                           
-   383                           ;main.c: 12: temp <<= 1;
-   384  0365  3001               	movlw	1
-   385  0366                     u185:	
-   386  0366  1003               	clrc
-   387  0367  0DAF               	rlf	divisionEntera@temp,f
-   388  0368  0DB0               	rlf	divisionEntera@temp+1,f
-   389  0369  3EFF               	addlw	-1
-   390  036A  1D03               	skipz
-   391  036B  2B66               	goto	u185
-   392  036C  2B56               	goto	l3
-   393  036D                     l581:	
-   394                           
-   395                           ;main.c: 13: }
-   396                           ;main.c: 15: denominador >>= 1;
-   397  036D  3001               	movlw	1
-   398  036E                     u205:	
-   399  036E  1003               	clrc
-   400  036F  0CB2               	rrf	divisionEntera@denominador+1,f
-   401  0370  0CB1               	rrf	divisionEntera@denominador,f
-   402  0371  3EFF               	addlw	-1
-   403  0372  1D03               	skipz
-   404  0373  2B6E               	goto	u205
-   405                           
-   406                           ;main.c: 16: temp >>= 1;
-   407  0374  3001               	movlw	1
-   408  0375                     u215:	
-   409  0375  1003               	clrc
-   410  0376  0CB0               	rrf	divisionEntera@temp+1,f
-   411  0377  0CAF               	rrf	divisionEntera@temp,f
-   412  0378  3EFF               	addlw	-1
-   413  0379  1D03               	skipz
-   414  037A  2B75               	goto	u215
-   415  037B                     l591:	
-   416                           ;main.c: 18: while (temp != 0) {
-   417                           
-   418  037B  082F               	movf	divisionEntera@temp,w
-   419  037C  0430               	iorwf	divisionEntera@temp+1,w
-   420  037D  1903               	btfsc	3,2
-   421  037E  2BA0               	goto	l593
-   422                           
-   423                           ;main.c: 19: if (dividendo >= denominador) {
-   424  037F  0832               	movf	divisionEntera@denominador+1,w
-   425  0380  0234               	subwf	divisionEntera@dividendo+1,w
-   426  0381  1D03               	skipz
-   427  0382  2B85               	goto	u225
-   428  0383  0831               	movf	divisionEntera@denominador,w
-   429  0384  0233               	subwf	divisionEntera@dividendo,w
-   430  0385                     u225:	
-   431  0385  1C03               	skipc
-   432  0386  2B91               	goto	l587
-   433                           
-   434                           ;main.c: 20: dividendo -= denominador;
-   435  0387  0831               	movf	divisionEntera@denominador,w
-   436  0388  02B3               	subwf	divisionEntera@dividendo,f
-   437  0389  0832               	movf	divisionEntera@denominador+1,w
-   438  038A  1C03               	skipc
-   439  038B  03B4               	decf	divisionEntera@dividendo+1,f
-   440  038C  02B4               	subwf	divisionEntera@dividendo+1,f
-   441                           
-   442                           ;main.c: 21: resultadoParteEntera |= temp;
-   443  038D  082F               	movf	divisionEntera@temp,w
-   444  038E  04A7               	iorwf	divisionEntera@resultadoParteEntera,f
-   445  038F  0830               	movf	divisionEntera@temp+1,w
-   446  0390  04A8               	iorwf	divisionEntera@resultadoParteEntera+1,f
-   447  0391                     l587:	
-   448                           
-   449                           ;main.c: 22: }
-   450                           ;main.c: 23: temp >>= 1;
-   451  0391  3001               	movlw	1
-   452  0392                     u235:	
-   453  0392  1003               	clrc
-   454  0393  0CB0               	rrf	divisionEntera@temp+1,f
-   455  0394  0CAF               	rrf	divisionEntera@temp,f
-   456  0395  3EFF               	addlw	-1
-   457  0396  1D03               	skipz
-   458  0397  2B92               	goto	u235
-   459                           
-   460                           ;main.c: 24: denominador >>= 1;
-   461  0398  3001               	movlw	1
-   462  0399                     u245:	
-   463  0399  1003               	clrc
-   464  039A  0CB2               	rrf	divisionEntera@denominador+1,f
-   465  039B  0CB1               	rrf	divisionEntera@denominador,f
-   466  039C  3EFF               	addlw	-1
-   467  039D  1D03               	skipz
-   468  039E  2B99               	goto	u245
-   469  039F  2B7B               	goto	l591
-   470  03A0                     l593:	
-   471                           
-   472                           ;main.c: 25: }
-   473                           ;main.c: 27: if (dividendo > 0) {
-   474  03A0  0833               	movf	divisionEntera@dividendo,w
-   475  03A1  0434               	iorwf	divisionEntera@dividendo+1,w
-   476  03A2  1903               	btfsc	3,2
-   477  03A3  2BE6               	goto	l611
-   478                           
-   479                           ;main.c: 28: dividendo <<= 1;
-   480  03A4  3001               	movlw	1
-   481  03A5                     u275:	
-   482  03A5  1003               	clrc
-   483  03A6  0DB3               	rlf	divisionEntera@dividendo,f
-   484  03A7  0DB4               	rlf	divisionEntera@dividendo+1,f
-   485  03A8  3EFF               	addlw	-1
-   486  03A9  1D03               	skipz
-   487  03AA  2BA5               	goto	u275
-   488                           
-   489                           ;main.c: 29: int count = 23;
-   490  03AB  3017               	movlw	23
-   491  03AC  00AB               	movwf	divisionEntera@count
-   492  03AD  3000               	movlw	0
-   493  03AE  00AC               	movwf	divisionEntera@count+1
-   494                           
-   495                           ;main.c: 30: while (dividendo > 0 && count > 0) {
-   496  03AF  2BD7               	goto	l607
-   497  03B0                     l597:	
-   498                           
-   499                           ;main.c: 31: if (dividendo >= divisor) {
-   500  03B0  1283               	bcf	3,5	;RP0=0, select bank0
-   501  03B1  082E               	movf	divisionEntera@divisor+1,w
-   502  03B2  0234               	subwf	divisionEntera@dividendo+1,w
-   503  03B3  1D03               	skipz
-   504  03B4  2BB7               	goto	u285
-   505  03B5  082D               	movf	divisionEntera@divisor,w
-   506  03B6  0233               	subwf	divisionEntera@dividendo,w
-   507  03B7                     u285:	
-   508  03B7  1C03               	skipc
-   509  03B8  2BC3               	goto	l601
-   510                           
-   511                           ;main.c: 32: dividendo -= divisor;
-   512  03B9  082D               	movf	divisionEntera@divisor,w
-   513  03BA  02B3               	subwf	divisionEntera@dividendo,f
-   514  03BB  082E               	movf	divisionEntera@divisor+1,w
-   515  03BC  1C03               	skipc
-   516  03BD  03B4               	decf	divisionEntera@dividendo+1,f
-   517  03BE  02B4               	subwf	divisionEntera@dividendo+1,f
-   518                           
-   519                           ;main.c: 33: resultadoFraccion |= temp2;
-   520  03BF  0825               	movf	divisionEntera@temp2,w
-   521  03C0  04A9               	iorwf	divisionEntera@resultadoFraccion,f
-   522  03C1  0826               	movf	divisionEntera@temp2+1,w
-   523  03C2  04AA               	iorwf	divisionEntera@resultadoFraccion+1,f
-   524  03C3                     l601:	
-   525                           
-   526                           ;main.c: 34: }
-   527                           ;main.c: 35: temp2 >>= 1;
-   528  03C3  3001               	movlw	1
-   529  03C4                     u295:	
-   530  03C4  1003               	clrc
-   531  03C5  0CA6               	rrf	divisionEntera@temp2+1,f
-   532  03C6  0CA5               	rrf	divisionEntera@temp2,f
-   533  03C7  3EFF               	addlw	-1
-   534  03C8  1D03               	skipz
-   535  03C9  2BC4               	goto	u295
-   536                           
-   537                           ;main.c: 36: dividendo <<= 1;
-   538  03CA  3001               	movlw	1
-   539  03CB                     u305:	
-   540  03CB  1003               	clrc
-   541  03CC  0DB3               	rlf	divisionEntera@dividendo,f
-   542  03CD  0DB4               	rlf	divisionEntera@dividendo+1,f
-   543  03CE  3EFF               	addlw	-1
-   544  03CF  1D03               	skipz
-   545  03D0  2BCB               	goto	u305
-   546                           
-   547                           ;main.c: 37: count--;
-   548  03D1  30FF               	movlw	255
-   549  03D2  07AB               	addwf	divisionEntera@count,f
-   550  03D3  1803               	skipnc
-   551  03D4  0AAC               	incf	divisionEntera@count+1,f
-   552  03D5  30FF               	movlw	255
-   553  03D6  07AC               	addwf	divisionEntera@count+1,f
-   554  03D7                     l607:	
-   555  03D7  0833               	movf	divisionEntera@dividendo,w
-   556  03D8  0434               	iorwf	divisionEntera@dividendo+1,w
-   557  03D9  1903               	btfsc	3,2
-   558  03DA  2BE6               	goto	l611
-   559  03DB  082C               	movf	divisionEntera@count+1,w
-   560  03DC  3A80               	xorlw	128
-   561  03DD  00DF               	movwf	95
-   562  03DE  3080               	movlw	128
-   563  03DF  025F               	subwf	95,w
-   564  03E0  1D03               	skipz
-   565  03E1  2BE4               	goto	u325
-   566  03E2  3001               	movlw	1
-   567  03E3  022B               	subwf	divisionEntera@count,w
-   568  03E4                     u325:	
-   569  03E4  1803               	skipnc
-   570  03E5  2BB0               	goto	l597
-   571  03E6                     l611:	
-   572                           
-   573                           ;main.c: 38: }
-   574                           ;main.c: 39: }
-   575                           ;main.c: 40: resultado[0] = resultadoParteEntera;
-   576  03E6  1283               	bcf	3,5	;RP0=0, select bank0
-   577  03E7  0824               	movf	divisionEntera@resultado,w
-   578  03E8  0084               	movwf	4
-   579  03E9  0827               	movf	divisionEntera@resultadoParteEntera,w
-   580  03EA  1383               	bcf	3,7	;select IRP bank0
-   581  03EB  0080               	movwf	0
-   582  03EC  0A84               	incf	4,f
-   583  03ED  0828               	movf	divisionEntera@resultadoParteEntera+1,w
-   584  03EE  0080               	movwf	0
-   585                           
-   586                           ;main.c: 41: resultado[1] = resultadoFraccion;
-   587  03EF  0824               	movf	divisionEntera@resultado,w
-   588  03F0  3E02               	addlw	2
-   589  03F1  0084               	movwf	4
-   590  03F2  0829               	movf	divisionEntera@resultadoFraccion,w
-   591  03F3  0080               	movwf	0
-   592  03F4  0A84               	incf	4,f
-   593  03F5  082A               	movf	divisionEntera@resultadoFraccion+1,w
-   594  03F6  0080               	movwf	0
-   595  03F7  0008               	return
-   596  03F8                     __end_of_divisionEntera:	
-   597  005E                     btemp	set	94	;btemp
-   598  005E                     wtemp0	set	94
+   276                           ;! Address spaces:
+   277                           
+   278                           ;!Name               Size   Autos  Total    Cost      Usage
+   279                           ;!SFR1                 0      0       0       2        0.0%
+   280                           ;!BITSFR1              0      0       0       2        0.0%
+   281                           ;!BANK0               3E      9       F       4       24.2%
+   282                           ;!BITBANK0            3E      0       1       3        1.6%
+   283                           ;!SFR0                 0      0       0       1        0.0%
+   284                           ;!BITSFR0              0      0       0       1        0.0%
+   285                           ;!COMMON               0      0       0       1        0.0%
+   286                           ;!BITCOMMON            0      0       0       0        0.0%
+   287                           ;!CODE                 0      0       0       0        0.0%
+   288                           ;!DATA                 0      0       F       6        0.0%
+   289                           ;!ABS                  0      0       F       5        0.0%
+   290                           ;!NULL                 0      0       0       0        0.0%
+   291                           ;!STACK                0      0       0       2        0.0%
+   292                           ;!EEDATA              80      0       0       0        0.0%
+   293                           
+   294                           	global	_main
+   295                           
+   296 ;; *************** function _main *****************
+   297 ;; Defined at:
+   298 ;;		line 102 in file "main.c"
+   299 ;; Parameters:    Size  Location     Type
+   300 ;;		None
+   301 ;; Auto vars:     Size  Location     Type
+   302 ;;		None
+   303 ;; Return value:  Size  Location     Type
+   304 ;;                  2   59[None  ] int 
+   305 ;; Registers used:
+   306 ;;		wreg, status,2, status,0, pclath, cstack
+   307 ;; Tracked objects:
+   308 ;;		On entry : B00/0
+   309 ;;		On exit  : 0/0
+   310 ;;		Unchanged: 0/0
+   311 ;; Data sizes:     COMMON   BANK0
+   312 ;;      Params:         0       0
+   313 ;;      Locals:         0       0
+   314 ;;      Temps:          0       0
+   315 ;;      Totals:         0       0
+   316 ;;Total ram usage:        0 bytes
+   317 ;; Hardware stack levels required when called:    3
+   318 ;; This function calls:
+   319 ;;		_configuracion
+   320 ;;		_leerDatos
+   321 ;; This function is called by:
+   322 ;;		Startup code after reset
+   323 ;; This function uses a non-reentrant model
+   324 ;;
+   325                           psect	maintext,global,class=CODE,delta=2,split=1,group=0
+   326                           	file	"main.c"
+   327                           	line	102
+   328                           global __pmaintext
+   329                           __pmaintext:	;psect for function _main
+   330  0332                     psect	maintext
+   331                           	file	"main.c"
+   332                           	line	102
+   333                           	global	__size_of_main
+   334                           	__size_of_main	equ	__end_of_main-_main
+   335  0005                     	
+   336                           _main:	
+   337  0332                     ;incstack = 0
+   338                           	opt	stack 5
+   339                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   340                           	line	103
+   341                           	
+   342                           l686:	
+   343  0332                     ;main.c: 103: configuracion();
+   344                           	fcall	_configuracion
+   345  0332  2337               	line	104
+   346                           ;main.c: 104: for (;;) {
+   347                           	
+   348                           l60:	
+   349  0333                     	line	105
+   350                           # 105 "main.c"
+   351                           clrwdt ;# 
+   352  0333  0064               psect	maintext
+   353                           	line	106
+   354                           ;main.c: 106: leerDatos();
+   355                           	fcall	_leerDatos
+   356  0334  2399               	line	107
+   357                           ;main.c: 107: }
+   358                           	goto	l60
+   359  0335  2B33               	
+   360                           l61:	
+   361  0336                     	line	108
+   362                           	
+   363                           l62:	
+   364  0336                     	global	start
+   365                           	ljmp	start
+   366  0336  2800               	opt stack 0
+   367                           GLOBAL	__end_of_main
+   368                           	__end_of_main:
+   369  0337                     	signat	_main,90
+   370                           	global	_leerDatos
+   371                           
+   372 ;; *************** function _leerDatos *****************
+   373 ;; Defined at:
+   374 ;;		line 76 in file "main.c"
+   375 ;; Parameters:    Size  Location     Type
+   376 ;;		None
+   377 ;; Auto vars:     Size  Location     Type
+   378 ;;  espera          4    5[BANK0 ] long 
+   379 ;; Return value:  Size  Location     Type
+   380 ;;                  1    wreg      void 
+   381 ;; Registers used:
+   382 ;;		wreg, status,2, status,0, pclath, cstack
+   383 ;; Tracked objects:
+   384 ;;		On entry : 0/0
+   385 ;;		On exit  : 0/0
+   386 ;;		Unchanged: 0/0
+   387 ;; Data sizes:     COMMON   BANK0
+   388 ;;      Params:         0       0
+   389 ;;      Locals:         0       4
+   390 ;;      Temps:          0       1
+   391 ;;      Totals:         0       5
+   392 ;;Total ram usage:        5 bytes
+   393 ;; Hardware stack levels used:    1
+   394 ;; Hardware stack levels required when called:    2
+   395 ;; This function calls:
+   396 ;;		_mostrarResultado
+   397 ;; This function is called by:
+   398 ;;		_main
+   399 ;; This function uses a non-reentrant model
+   400 ;;
+   401                           psect	text1,local,class=CODE,delta=2,merge=1,group=0
+   402                           	line	76
+   403                           global __ptext1
+   404                           __ptext1:	;psect for function _leerDatos
+   405  0399                     psect	text1
+   406                           	file	"main.c"
+   407                           	line	76
+   408                           	global	__size_of_leerDatos
+   409                           	__size_of_leerDatos	equ	__end_of_leerDatos-_leerDatos
+   410  005C                     	
+   411                           _leerDatos:	
+   412  0399                     ;incstack = 0
+   413                           	opt	stack 5
+   414                           ; Regs used in _leerDatos: [wreg+status,2+status,0+pclath+cstack]
+   415                           	line	77
+   416                           	
+   417                           l658:	
+   418  0399                     ;main.c: 77: if (GPIObits.GP3 == 1) {
+   419                           	bcf	status, 5	;RP0=0, select bank0
+   420  0399  1283               	btfss	(5),3	;volatile
+   421  039A  1D85               	goto	u171
+   422  039B  2B9D               	goto	u170
+   423  039C  2B9E               u171:
+   424  039D                     	goto	l44
+   425  039D  2BF2               u170:
+   426  039E                     	line	78
+   427                           	
+   428                           l660:	
+   429  039E                     ;main.c: 78: if (flagFlanco == 0) {
+   430                           	btfsc	(_flagFlanco/8),(_flagFlanco)&7
+   431  039E  182E               	goto	u181
+   432  039F  2BA1               	goto	u180
+   433  03A0  2BA2               u181:
+   434  03A1                     	goto	l51
+   435  03A1  2BF4               u180:
+   436  03A2                     	line	79
+   437                           	
+   438                           l662:	
+   439  03A2                     ;main.c: 79: long espera = 200000;
+   440                           	movlw	0
+   441  03A2  3000               	movwf	(leerDatos@espera+3)
+   442  03A3  00A8               	movlw	03h
+   443  03A4  3003               	movwf	(leerDatos@espera+2)
+   444  03A5  00A7               	movlw	0Dh
+   445  03A6  300D               	movwf	(leerDatos@espera+1)
+   446  03A7  00A6               	movlw	040h
+   447  03A8  3040               	movwf	(leerDatos@espera)
+   448  03A9  00A5               
+   449                           	line	80
+   450                           ;main.c: 80: while (espera > 0) {
+   451                           	goto	l684
+   452  03AA  2BDB               	
+   453                           l47:	
+   454  03AB                     	line	81
+   455                           	
+   456                           l664:	
+   457  03AB                     ;main.c: 81: espera--;
+   458                           	movlw	0FFh
+   459  03AB  30FF               	addwf	(leerDatos@espera),f
+   460  03AC  07A5               	movlw	0FFh
+   461  03AD  30FF               	skipc
+   462  03AE  1C03               	addwf	(leerDatos@espera+1),f
+   463  03AF  07A6               	movlw	0FFh
+   464  03B0  30FF               	skipc
+   465  03B1  1C03               	addwf	(leerDatos@espera+2),f
+   466  03B2  07A7               	movlw	0FFh
+   467  03B3  30FF               	skipc
+   468  03B4  1C03               	addwf	(leerDatos@espera+3),f
+   469  03B5  07A8               	line	82
+   470                           # 82 "main.c"
+   471                           clrwdt ;# 
+   472  03B6  0064               psect	text1
+   473                           	line	83
+   474                           	
+   475                           l666:	
+   476  03B7                     ;main.c: 83: if (GPIObits.GP3 == 0) {
+   477                           	bcf	status, 5	;RP0=0, select bank0
+   478  03B7  1283               	btfsc	(5),3	;volatile
+   479  03B8  1985               	goto	u191
+   480  03B9  2BBB               	goto	u190
+   481  03BA  2BBC               u191:
+   482  03BB                     	goto	l678
+   483  03BB  2BCE               u190:
+   484  03BC                     	line	84
+   485                           	
+   486                           l668:	
+   487  03BC                     ;main.c: 84: flagFlanco = 1;
+   488                           	bsf	(_flagFlanco/8),(_flagFlanco)&7
+   489  03BC  142E               	line	85
+   490                           ;main.c: 85: if (GPIObits.GP5 == 0) {
+   491                           	btfsc	(5),5	;volatile
+   492  03BD  1A85               	goto	u201
+   493  03BE  2BC0               	goto	u200
+   494  03BF  2BC1               u201:
+   495  03C0                     	goto	l672
+   496  03C0  2BC6               u200:
+   497  03C1                     	line	86
+   498                           	
+   499                           l670:	
+   500  03C1                     ;main.c: 86: operando1 += 1;
+   501                           	movlw	low(01h)
+   502  03C1  3001               	movwf	(??_leerDatos+0)+0
+   503  03C2  00A4               	movf	(??_leerDatos+0)+0,w
+   504  03C3  0824               	addwf	(_operando1),f
+   505  03C4  07AB               	line	87
+   506                           ;main.c: 87: } else {
+   507                           	goto	l51
+   508  03C5  2BF4               	
+   509                           l49:	
+   510  03C6                     	line	88
+   511                           	
+   512                           l672:	
+   513  03C6                     ;main.c: 88: operando2 += 1;
+   514                           	movlw	low(01h)
+   515  03C6  3001               	movwf	(??_leerDatos+0)+0
+   516  03C7  00A4               	movf	(??_leerDatos+0)+0,w
+   517  03C8  0824               	addwf	(_operando2),f
+   518  03C9  07AA               	goto	l51
+   519  03CA  2BF4               	line	89
+   520                           	
+   521                           l50:	
+   522  03CB                     	goto	l51
+   523  03CB  2BF4               	line	90
+   524                           	
+   525                           l674:	
+   526  03CC                     ;main.c: 89: }
+   527                           ;main.c: 90: return;
+   528                           	goto	l51
+   529  03CC  2BF4               	line	91
+   530                           	
+   531                           l676:	
+   532  03CD                     ;main.c: 91: } else if (espera == 0) {
+   533                           	goto	l684
+   534  03CD  2BDB               	
+   535                           l48:	
+   536  03CE                     	
+   537                           l678:	
+   538  03CE                     	movf	(leerDatos@espera+3),w
+   539  03CE  0828               	iorwf	(leerDatos@espera+2),w
+   540  03CF  0427               	iorwf	(leerDatos@espera+1),w
+   541  03D0  0426               	iorwf	(leerDatos@espera),w
+   542  03D1  0425               	skipz
+   543  03D2  1D03               	goto	u211
+   544  03D3  2BD5               	goto	u210
+   545  03D4  2BD6               u211:
+   546  03D5                     	goto	l684
+   547  03D5  2BDB               u210:
+   548  03D6                     	line	92
+   549                           	
+   550                           l680:	
+   551  03D6                     ;main.c: 92: mostrarResultado();
+   552                           	fcall	_mostrarResultado
+   553  03D6  233F               	goto	l51
+   554  03D7  2BF4               	line	93
+   555                           	
+   556                           l682:	
+   557  03D8                     ;main.c: 93: return;
+   558                           	goto	l51
+   559  03D8  2BF4               	line	94
+   560                           	
+   561                           l53:	
+   562  03D9                     	goto	l684
+   563  03D9  2BDB               	line	95
+   564                           	
+   565                           l52:	
+   566  03DA                     	goto	l684
+   567  03DA  2BDB               	
+   568                           l46:	
+   569  03DB                     	line	80
+   570                           	
+   571                           l684:	
+   572  03DB                     	bcf	status, 5	;RP0=0, select bank0
+   573  03DB  1283               	btfsc	(leerDatos@espera+3),7
+   574  03DC  1BA8               	goto	u220
+   575  03DD  2BEF               	movf	(leerDatos@espera+3),w
+   576  03DE  0828               	btfss	status,2
+   577  03DF  1D03               	goto	u221
+   578  03E0  2BEE               	movf	(leerDatos@espera+2),w
+   579  03E1  0827               	btfss	status,2
+   580  03E2  1D03               	goto	u221
+   581  03E3  2BEE               	movf	(leerDatos@espera+1),w
+   582  03E4  0826               	btfss	status,2
+   583  03E5  1D03               	goto	u221
+   584  03E6  2BEE               	movlw	1
+   585  03E7  3001               	subwf	(leerDatos@espera),w
+   586  03E8  0225               	skipz
+   587  03E9  1D03               	goto	u223
+   588  03EA  2BEB               u223:
+   589  03EB                     	btfsc	status,0
+   590  03EB  1803               	goto	u221
+   591  03EC  2BEE               	goto	u220
+   592  03ED  2BEF               
+   593                           u221:
+   594  03EE                     	goto	l664
+   595  03EE  2BAB               u220:
+   596  03EF                     	goto	l51
+   597  03EF  2BF4               	
+   598                           l54:	
+   599  03F0                     	goto	l51
+   600  03F0  2BF4               	line	96
+   601                           	
+   602                           l45:	
+   603  03F1                     	line	97
+   604                           ;main.c: 94: }
+   605                           ;main.c: 95: }
+   606                           ;main.c: 96: }
+   607                           ;main.c: 97: } else {
+   608                           	goto	l51
+   609  03F1  2BF4               	
+   610                           l44:	
+   611  03F2                     	line	98
+   612                           ;main.c: 98: flagFlanco = 0;
+   613                           	bcf	(_flagFlanco/8),(_flagFlanco)&7
+   614  03F2  102E               	goto	l51
+   615  03F3  2BF4               	line	99
+   616                           	
+   617                           l55:	
+   618  03F4                     	line	100
+   619                           	
+   620                           l51:	
+   621  03F4                     	return
+   622  03F4  0008               	opt stack 0
+   623                           GLOBAL	__end_of_leerDatos
+   624                           	__end_of_leerDatos:
+   625  03F5                     	signat	_leerDatos,89
+   626                           	global	_mostrarResultado
+   627                           
+   628 ;; *************** function _mostrarResultado *****************
+   629 ;; Defined at:
+   630 ;;		line 66 in file "main.c"
+   631 ;; Parameters:    Size  Location     Type
+   632 ;;		None
+   633 ;; Auto vars:     Size  Location     Type
+   634 ;;		None
+   635 ;; Return value:  Size  Location     Type
+   636 ;;                  1    wreg      void 
+   637 ;; Registers used:
+   638 ;;		wreg, status,2, status,0, pclath, cstack
+   639 ;; Tracked objects:
+   640 ;;		On entry : 0/0
+   641 ;;		On exit  : 0/0
+   642 ;;		Unchanged: 0/0
+   643 ;; Data sizes:     COMMON   BANK0
+   644 ;;      Params:         0       0
+   645 ;;      Locals:         0       0
+   646 ;;      Temps:          0       0
+   647 ;;      Totals:         0       0
+   648 ;;Total ram usage:        0 bytes
+   649 ;; Hardware stack levels used:    1
+   650 ;; Hardware stack levels required when called:    1
+   651 ;; This function calls:
+   652 ;;		_divisionEntera
+   653 ;;		_parpadearLEDResultado
+   654 ;; This function is called by:
+   655 ;;		_leerDatos
+   656 ;; This function uses a non-reentrant model
+   657 ;;
+   658                           psect	text2,local,class=CODE,delta=2,merge=1,group=0
+   659                           	line	66
+   660                           global __ptext2
+   661                           __ptext2:	;psect for function _mostrarResultado
+   662  033F                     psect	text2
+   663                           	file	"main.c"
+   664                           	line	66
+   665                           	global	__size_of_mostrarResultado
+   666                           	__size_of_mostrarResultado	equ	__end_of_mostrarResultado-_mostrarResultado
+   667  0010                     	
+   668                           _mostrarResultado:	
+   669  033F                     ;incstack = 0
+   670                           	opt	stack 5
+   671                           ; Regs used in _mostrarResultado: [wreg+status,2+status,0+pclath+cstack]
+   672                           	line	67
+   673                           	
+   674                           l642:	
+   675  033F                     ;main.c: 67: divisionEntera();
+   676                           	fcall	_divisionEntera
+   677  033F  2366               	line	69
+   678                           ;main.c: 69: while (resultado > 0) {
+   679                           	goto	l648
+   680  0340  2B47               	
+   681                           l39:	
+   682  0341                     	line	70
+   683                           # 70 "main.c"
+   684                           clrwdt ;# 
+   685  0341  0064               psect	text2
+   686                           	line	71
+   687                           	
+   688                           l644:	
+   689  0342                     ;main.c: 71: parpadearLEDResultado();
+   690                           	fcall	_parpadearLEDResultado
+   691  0342  234F               	line	72
+   692                           	
+   693                           l646:	
+   694  0343                     ;main.c: 72: resultado--;
+   695                           	movlw	01h
+   696  0343  3001               	bcf	status, 5	;RP0=0, select bank0
+   697  0344  1283               	subwf	(_resultado),f
+   698  0345  02A9               	goto	l648
+   699  0346  2B47               	line	73
+   700                           	
+   701                           l38:	
+   702  0347                     	line	69
+   703                           	
+   704                           l648:	
+   705  0347                     	bcf	status, 5	;RP0=0, select bank0
+   706  0347  1283               	movf	((_resultado)),w
+   707  0348  0829               	btfss	status,2
+   708  0349  1D03               	goto	u161
+   709  034A  2B4C               	goto	u160
+   710  034B  2B4D               u161:
+   711  034C                     	goto	l39
+   712  034C  2B41               u160:
+   713  034D                     	goto	l41
+   714  034D  2B4E               	
+   715                           l40:	
+   716  034E                     	line	74
+   717                           	
+   718                           l41:	
+   719  034E                     	return
+   720  034E  0008               	opt stack 0
+   721                           GLOBAL	__end_of_mostrarResultado
+   722                           	__end_of_mostrarResultado:
+   723  034F                     	signat	_mostrarResultado,89
+   724                           	global	_parpadearLEDResultado
+   725                           
+   726 ;; *************** function _parpadearLEDResultado *****************
+   727 ;; Defined at:
+   728 ;;		line 59 in file "main.c"
+   729 ;; Parameters:    Size  Location     Type
+   730 ;;		None
+   731 ;; Auto vars:     Size  Location     Type
+   732 ;;		None
+   733 ;; Return value:  Size  Location     Type
+   734 ;;                  1    wreg      void 
+   735 ;; Registers used:
+   736 ;;		wreg
+   737 ;; Tracked objects:
+   738 ;;		On entry : 0/0
+   739 ;;		On exit  : 0/0
+   740 ;;		Unchanged: 0/0
+   741 ;; Data sizes:     COMMON   BANK0
+   742 ;;      Params:         0       0
+   743 ;;      Locals:         0       0
+   744 ;;      Temps:          0       4
+   745 ;;      Totals:         0       4
+   746 ;;Total ram usage:        4 bytes
+   747 ;; Hardware stack levels used:    1
+   748 ;; This function calls:
+   749 ;;		Nothing
+   750 ;; This function is called by:
+   751 ;;		_mostrarResultado
+   752 ;; This function uses a non-reentrant model
+   753 ;;
+   754                           psect	text3,local,class=CODE,delta=2,merge=1,group=0
+   755                           	line	59
+   756                           global __ptext3
+   757                           __ptext3:	;psect for function _parpadearLEDResultado
+   758  034F                     psect	text3
+   759                           	file	"main.c"
+   760                           	line	59
+   761                           	global	__size_of_parpadearLEDResultado
+   762                           	__size_of_parpadearLEDResultado	equ	__end_of_parpadearLEDResultado-_parpadearLEDResulta
+                                 do
+   763  0017                     	
+   764                           _parpadearLEDResultado:	
+   765  034F                     ;incstack = 0
+   766                           	opt	stack 5
+   767                           ; Regs used in _parpadearLEDResultado: [wreg]
+   768                           	line	60
+   769                           	
+   770                           l636:	
+   771  034F                     ;main.c: 60: GPIObits.GPIO0 = 0;
+   772                           	bcf	status, 5	;RP0=0, select bank0
+   773  034F  1283               	bcf	(5),0	;volatile
+   774  0350  1005               	line	61
+   775                           	
+   776                           l638:	
+   777  0351                     ;main.c: 61: _delay(tiempoParpadeo);
+   778                           	movf	(_tiempoParpadeo),w
+   779  0351  082C               	movwf	((??_parpadearLEDResultado+0)+0)
+   780  0352  00A0               	movf	(_tiempoParpadeo+1),w
+   781  0353  082D               	movwf	((??_parpadearLEDResultado+0)+0+1)
+   782  0354  00A1               	movlw	0
+   783  0355  3000               	btfsc	((??_parpadearLEDResultado+0)+0+1),7
+   784  0356  1BA1               	movlw	255
+   785  0357  30FF               	movwf	((??_parpadearLEDResultado+0)+0+2)
+   786  0358  00A2               	movwf	((??_parpadearLEDResultado+0)+0+3)
+   787  0359  00A3               		opt asmopt_push
+   788                           	opt asmopt_off
+   789                           	opt asmopt_pop
+   790                           
+   791                           	line	62
+   792                           	
+   793                           l640:	
+   794  035A                     ;main.c: 62: GPIObits.GPIO0 = 1;
+   795                           	bcf	status, 5	;RP0=0, select bank0
+   796  035A  1283               	bsf	(5),0	;volatile
+   797  035B  1405               	line	63
+   798                           ;main.c: 63: _delay(tiempoParpadeo);
+   799                           	movf	(_tiempoParpadeo),w
+   800  035C  082C               	movwf	((??_parpadearLEDResultado+0)+0)
+   801  035D  00A0               	movf	(_tiempoParpadeo+1),w
+   802  035E  082D               	movwf	((??_parpadearLEDResultado+0)+0+1)
+   803  035F  00A1               	movlw	0
+   804  0360  3000               	btfsc	((??_parpadearLEDResultado+0)+0+1),7
+   805  0361  1BA1               	movlw	255
+   806  0362  30FF               	movwf	((??_parpadearLEDResultado+0)+0+2)
+   807  0363  00A2               	movwf	((??_parpadearLEDResultado+0)+0+3)
+   808  0364  00A3               		opt asmopt_push
+   809                           	opt asmopt_off
+   810                           	opt asmopt_pop
+   811                           
+   812                           	line	64
+   813                           	
+   814                           l35:	
+   815  0365                     	return
+   816  0365  0008               	opt stack 0
+   817                           GLOBAL	__end_of_parpadearLEDResultado
+   818                           	__end_of_parpadearLEDResultado:
+   819  0366                     	signat	_parpadearLEDResultado,89
+   820                           	global	_divisionEntera
+   821                           
+   822 ;; *************** function _divisionEntera *****************
+   823 ;; Defined at:
+   824 ;;		line 33 in file "main.c"
+   825 ;; Parameters:    Size  Location     Type
+   826 ;;		None
+   827 ;; Auto vars:     Size  Location     Type
+   828 ;;  temp            1    1[BANK0 ] unsigned char 
+   829 ;; Return value:  Size  Location     Type
+   830 ;;                  1    wreg      void 
+   831 ;; Registers used:
+   832 ;;		wreg, status,2, status,0
+   833 ;; Tracked objects:
+   834 ;;		On entry : 0/0
+   835 ;;		On exit  : 0/0
+   836 ;;		Unchanged: 0/0
+   837 ;; Data sizes:     COMMON   BANK0
+   838 ;;      Params:         0       0
+   839 ;;      Locals:         0       1
+   840 ;;      Temps:          0       1
+   841 ;;      Totals:         0       2
+   842 ;;Total ram usage:        2 bytes
+   843 ;; Hardware stack levels used:    1
+   844 ;; This function calls:
+   845 ;;		Nothing
+   846 ;; This function is called by:
+   847 ;;		_mostrarResultado
+   848 ;; This function uses a non-reentrant model
+   849 ;;
+   850                           psect	text4,local,class=CODE,delta=2,merge=1,group=0
+   851                           	line	33
+   852                           global __ptext4
+   853                           __ptext4:	;psect for function _divisionEntera
+   854  0366                     psect	text4
+   855                           	file	"main.c"
+   856                           	line	33
+   857                           	global	__size_of_divisionEntera
+   858                           	__size_of_divisionEntera	equ	__end_of_divisionEntera-_divisionEntera
+   859  0033                     	
+   860                           _divisionEntera:	
+   861  0366                     ;incstack = 0
+   862                           	opt	stack 5
+   863                           ; Regs used in _divisionEntera: [wreg+status,2+status,0]
+   864                           	line	34
+   865                           	
+   866                           l618:	
+   867  0366                     ;main.c: 34: unsigned char temp = 1;
+   868                           	bcf	status, 5	;RP0=0, select bank0
+   869  0366  1283               	clrf	(divisionEntera@temp)
+   870  0367  01A1               	incf	(divisionEntera@temp),f
+   871  0368  0AA1               	line	36
+   872                           	
+   873                           l620:	
+   874  0369                     ;main.c: 36: if (operando2 == 0) {
+   875                           	movf	((_operando2)),w
+   876  0369  082A               	btfss	status,2
+   877  036A  1D03               	goto	u121
+   878  036B  2B6D               	goto	u120
+   879  036C  2B6E               u121:
+   880  036D                     	goto	l26
+   881  036D  2B75               u120:
+   882  036E                     	goto	l25
+   883  036E  2B98               	line	37
+   884                           	
+   885                           l622:	
+   886  036F                     ;main.c: 37: return;
+   887                           	goto	l25
+   888  036F  2B98               	line	38
+   889                           	
+   890                           l24:	
+   891  0370                     	line	41
+   892                           ;main.c: 38: }
+   893                           ;main.c: 41: while (operando2 <= operando1) {
+   894                           	goto	l26
+   895  0370  2B75               	
+   896                           l27:	
+   897  0371                     	line	42
+   898                           	
+   899                           l624:	
+   900  0371                     ;main.c: 42: operando2 <<= 1;
+   901                           	clrc
+   902  0371  1003               	rlf	(_operando2),f
+   903  0372  0DAA               
+   904                           	line	43
+   905                           ;main.c: 43: temp <<= 1;
+   906                           	clrc
+   907  0373  1003               	rlf	(divisionEntera@temp),f
+   908  0374  0DA1               
+   909                           	line	44
+   910                           	
+   911                           l26:	
+   912  0375                     	line	41
+   913                           	movf	(_operando2),w
+   914  0375  082A               	subwf	(_operando1),w
+   915  0376  022B               	skipnc
+   916  0377  1803               	goto	u131
+   917  0378  2B7A               	goto	u130
+   918  0379  2B7B               u131:
+   919  037A                     	goto	l624
+   920  037A  2B71               u130:
+   921  037B                     	goto	l626
+   922  037B  2B7C               	
+   923                           l28:	
+   924  037C                     	line	46
+   925                           	
+   926                           l626:	
+   927  037C                     ;main.c: 44: }
+   928                           ;main.c: 46: operando2 >>= 1;
+   929                           	clrc
+   930  037C  1003               	rrf	(_operando2),f
+   931  037D  0CAA               
+   932                           	line	47
+   933                           ;main.c: 47: temp >>= 1;
+   934                           	clrc
+   935  037E  1003               	rrf	(divisionEntera@temp),f
+   936  037F  0CA1               
+   937                           	line	49
+   938                           ;main.c: 49: while (temp != 0) {
+   939                           	goto	l29
+   940  0380  2B92               	
+   941                           l30:	
+   942  0381                     	line	50
+   943                           	
+   944                           l628:	
+   945  0381                     ;main.c: 50: if (operando1 >= operando2) {
+   946                           	movf	(_operando2),w
+   947  0381  082A               	subwf	(_operando1),w
+   948  0382  022B               	skipc
+   949  0383  1C03               	goto	u141
+   950  0384  2B86               	goto	u140
+   951  0385  2B87               u141:
+   952  0386                     	goto	l632
+   953  0386  2B8E               u140:
+   954  0387                     	line	51
+   955                           	
+   956                           l630:	
+   957  0387                     ;main.c: 51: operando1 -= operando2;
+   958                           	movf	(_operando2),w
+   959  0387  082A               	subwf	(_operando1),f
+   960  0388  02AB               	line	52
+   961                           ;main.c: 52: resultado |= temp;
+   962                           	movf	(divisionEntera@temp),w
+   963  0389  0821               	movwf	(??_divisionEntera+0)+0
+   964  038A  00A0               	movf	(??_divisionEntera+0)+0,w
+   965  038B  0820               	iorwf	(_resultado),f
+   966  038C  04A9               	goto	l632
+   967  038D  2B8E               	line	53
+   968                           	
+   969                           l31:	
+   970  038E                     	line	54
+   971                           	
+   972                           l632:	
+   973  038E                     ;main.c: 53: }
+   974                           ;main.c: 54: temp >>= 1;
+   975                           	clrc
+   976  038E  1003               	rrf	(divisionEntera@temp),f
+   977  038F  0CA1               
+   978                           	line	55
+   979                           	
+   980                           l634:	
+   981  0390                     ;main.c: 55: operando2 >>= 1;
+   982                           	clrc
+   983  0390  1003               	rrf	(_operando2),f
+   984  0391  0CAA               
+   985                           	line	56
+   986                           	
+   987                           l29:	
+   988  0392                     	line	49
+   989                           	movf	((divisionEntera@temp)),w
+   990  0392  0821               	btfss	status,2
+   991  0393  1D03               	goto	u151
+   992  0394  2B96               	goto	u150
+   993  0395  2B97               u151:
+   994  0396                     	goto	l628
+   995  0396  2B81               u150:
+   996  0397                     	goto	l25
+   997  0397  2B98               	
+   998                           l32:	
+   999  0398                     	line	57
+  1000                           	
+  1001                           l25:	
+  1002  0398                     	return
+  1003  0398  0008               	opt stack 0
+  1004                           GLOBAL	__end_of_divisionEntera
+  1005                           	__end_of_divisionEntera:
+  1006  0399                     	signat	_divisionEntera,89
+  1007                           	global	_configuracion
+  1008                           
+  1009 ;; *************** function _configuracion *****************
+  1010 ;; Defined at:
+  1011 ;;		line 18 in file "main.c"
+  1012 ;; Parameters:    Size  Location     Type
+  1013 ;;		None
+  1014 ;; Auto vars:     Size  Location     Type
+  1015 ;;		None
+  1016 ;; Return value:  Size  Location     Type
+  1017 ;;                  1    wreg      void 
+  1018 ;; Registers used:
+  1019 ;;		wreg, status,2, status,0
+  1020 ;; Tracked objects:
+  1021 ;;		On entry : 0/0
+  1022 ;;		On exit  : 0/0
+  1023 ;;		Unchanged: 0/0
+  1024 ;; Data sizes:     COMMON   BANK0
+  1025 ;;      Params:         0       0
+  1026 ;;      Locals:         0       0
+  1027 ;;      Temps:          0       0
+  1028 ;;      Totals:         0       0
+  1029 ;;Total ram usage:        0 bytes
+  1030 ;; Hardware stack levels used:    1
+  1031 ;; This function calls:
+  1032 ;;		Nothing
+  1033 ;; This function is called by:
+  1034 ;;		_main
+  1035 ;; This function uses a non-reentrant model
+  1036 ;;
+  1037                           psect	text5,local,class=CODE,delta=2,merge=1,group=0
+  1038                           	line	18
+  1039                           global __ptext5
+  1040                           __ptext5:	;psect for function _configuracion
+  1041  0337                     psect	text5
+  1042                           	file	"main.c"
+  1043                           	line	18
+  1044                           	global	__size_of_configuracion
+  1045                           	__size_of_configuracion	equ	__end_of_configuracion-_configuracion
+  1046  0008                     	
+  1047                           _configuracion:	
+  1048  0337                     ;incstack = 0
+  1049                           	opt	stack 7
+  1050                           ; Regs used in _configuracion: [wreg+status,2+status,0]
+  1051                           	line	25
+  1052                           	
+  1053                           l650:	
+  1054  0337                     ;main.c: 25: TRISIO = 0b111100;
+  1055                           	movlw	low(03Ch)
+  1056  0337  303C               	bsf	status, 5	;RP0=1, select bank1
+  1057  0338  1683               	movwf	(133)^080h	;volatile
+  1058  0339  0085               	line	28
+  1059                           	
+  1060                           l652:	
+  1061  033A                     ;main.c: 28: OPTION_REGbits.T0CS = 0;
+  1062                           	bcf	(129)^080h,5	;volatile
+  1063  033A  1281               	line	29
+  1064                           	
+  1065                           l654:	
+  1066  033B                     ;main.c: 29: OPTION_REGbits.PSA = 0;
+  1067                           	bcf	(129)^080h,3	;volatile
+  1068  033B  1181               	line	30
+  1069                           	
+  1070                           l656:	
+  1071  033C                     ;main.c: 30: OPTION_REGbits.PS = 0b111;
+  1072                           	movlw	(07h & ((1<<3)-1))<<0
+  1073  033C  3007               	iorwf	(129)^080h,f	;volatile
+  1074  033D  0481               	line	31
+  1075                           	
+  1076                           l21:	
+  1077  033E                     	return
+  1078  033E  0008               	opt stack 0
+  1079                           GLOBAL	__end_of_configuracion
+  1080                           	__end_of_configuracion:
+  1081  033F                     	signat	_configuracion,89
+  1082                           global	___latbits
+  1083                           ___latbits	equ	0
+  1084  0000                     	global	btemp
+  1085                           	btemp set 05Eh
+  1086  005E                     
+  1087                           	DABS	1,94,2	;btemp
+  1088                           	global	wtemp0
+  1089                           	wtemp0 set btemp+0
+  1090  005E                     	end
 
 
 Data Sizes:
     Strings     0
     Constant    0
-    Data        0
-    BSS         4
+    Data        2
+    BSS         3
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
     COMMON            0      0       0
-    BANK0            62     30      34
+    BANK0            62      9      15
 
 Pointer List with Targets:
 
-    divisionEntera@resultado	PTR PTR unsigned int  size(1) Largest target is 4
-		 -> probarDivision@resultado(BANK0[4]), 
-
+    None.
 
 Critical Paths under _main in COMMON
 
@@ -637,86 +1176,114 @@ Critical Paths under _main in COMMON
 
 Critical Paths under _main in BANK0
 
-    _main->_probarDivision
-    _probarDivision->_divisionEntera
+    _main->_leerDatos
+    _mostrarResultado->_parpadearLEDResultado
 
 Call Graph Tables:
 
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 0     0      0     935
-                     _probarDivision
+ (0) _main                                                 0     0      0      94
+                      _configuracion
+                          _leerDatos
  ---------------------------------------------------------------------------------
- (1) _probarDivision                                       9     5      4     935
-                                             21 BANK0      9     5      4
+ (1) _leerDatos                                            5     5      0      94
+                                              4 BANK0      5     5      0
+                   _mostrarResultado
+ ---------------------------------------------------------------------------------
+ (2) _mostrarResultado                                     0     0      0      48
                      _divisionEntera
+              _parpadearLEDResultado
  ---------------------------------------------------------------------------------
- (2) _divisionEntera                                      21    16      5     712
-                                              0 BANK0     21    16      5
+ (3) _parpadearLEDResultado                                4     4      0       0
+                                              0 BANK0      4     4      0
  ---------------------------------------------------------------------------------
- Estimated maximum stack depth 2
+ (3) _divisionEntera                                       2     2      0      48
+                                              0 BANK0      2     2      0
+ ---------------------------------------------------------------------------------
+ (1) _configuracion                                        0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
  ---------------------------------------------------------------------------------
 
  Call Graph Graphs:
 
  _main (ROOT)
-   _probarDivision
-     _divisionEntera
+   _configuracion
+   _leerDatos
+     _mostrarResultado
+       _divisionEntera
+       _parpadearLEDResultado
 
  Address spaces:
 Name               Size   Autos  Total    Cost      Usage
-BITCOMMON            0      0       0       0        0.0%
-EEDATA              80      0       0       0        0.0%
-NULL                 0      0       0       0        0.0%
-CODE                 0      0       0       0        0.0%
-BITSFR0              0      0       0       1        0.0%
-SFR0                 0      0       0       1        0.0%
-COMMON               0      0       0       1        0.0%
-BITSFR1              0      0       0       2        0.0%
 SFR1                 0      0       0       2        0.0%
+BITSFR1              0      0       0       2        0.0%
+BANK0               3E      9       F       4       24.2%
+BITBANK0            3E      0       1       3        1.6%
+SFR0                 0      0       0       1        0.0%
+BITSFR0              0      0       0       1        0.0%
+COMMON               0      0       0       1        0.0%
+BITCOMMON            0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+DATA                 0      0       F       6        0.0%
+ABS                  0      0       F       5        0.0%
+NULL                 0      0       0       0        0.0%
 STACK                0      0       0       2        0.0%
-BITBANK0            3E      0       0       3        0.0%
-BANK0               3E     1E      22       4       54.8%
-ABS                  0      0      22       5        0.0%
-DATA                 0      0      22       6        0.0%
+EEDATA              80      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V1.43 build -156212558 
-Symbol Table                                                                                   Fri Oct 20 17:02:04 2017
+Symbol Table                                                                                   Thu Oct 26 11:01:39 2017
 
-                                 l3 0356                      _divisionEntera 033F  
-                               l601 03C3                                 l611 03E6  
-                               l607 03D7                                 l581 036D  
-                               l591 037B                                 l593 03A0  
-                               l587 0391                                 l597 03B0  
-                               u205 036E                                 u215 0375  
-                               u305 03CB                                 u225 0385  
-                               u235 0392                                 u325 03E4  
-                               u245 0399                                 u175 035F  
-                               u185 0366                                 u275 03A5  
-                               u195 035C                                 u285 03B7  
-                               u295 03C4                                 fsr0 0004  
-                               indf 0000                                _main 031D  
-                              btemp 005E                                start 0000  
-            __end_of_divisionEntera 03F8              divisionEntera@divisor1 0022  
-                             ?_main 0020                    ??_probarDivision 0039  
-           probarDivision@operando1 0035             probarDivision@operando2 0037  
-           probarDivision@resultado 003A                               status 0003  
-                             wtemp0 005E                     __initialization 03F8  
-                      __end_of_main 0328                     ?_divisionEntera 0020  
-         divisionEntera@denominador 0031             divisionEntera@dividendo 0033  
-                            ??_main 0000                  divisionEntera@temp 002F  
-           divisionEntera@resultado 0024             __end_of__initialization 03FD  
-                    __pcstackCOMMON 0000            divisionEntera@dividendo1 0020  
-                        __pbssBANK0 003E                          __pmaintext 031D  
-   divisionEntera@resultadoFraccion 0029                 divisionEntera@count 002B  
-               divisionEntera@temp2 0025                    ??_divisionEntera 0000  
-                           __ptext1 0328                             __ptext2 033F  
-              end_of_initialization 03FD             __size_of_probarDivision 0017  
-             divisionEntera@divisor 002D                 start_initialization 03F8  
-                         ___latbits 0000                       __pcstackBANK0 0020  
-                 probarDivision@F17 003E                      _probarDivision 0328  
-divisionEntera@resultadoParteEntera 0027              __end_of_probarDivision 033F  
-           __size_of_divisionEntera 00B9                     ?_probarDivision 0035  
-                     __size_of_main 000B  
+                            l21 033E                              l30 0381                              l31 038E  
+                            l32 0398                              l24 0370                              l40 034E  
+                            l25 0398                              l41 034E                              l26 0375  
+                            l50 03CB                              l27 0371                              l35 0365  
+                            l51 03F4                              l28 037C                              l52 03DA  
+                            l44 03F2                              l60 0333                              l29 0392  
+                            l45 03F1                              l53 03D9                              l61 0336  
+                            l38 0347                              l54 03F0                              l46 03DB  
+                            l62 0336                              l39 0341                              l55 03F4  
+                            l47 03AB                              l48 03CE                              l49 03C6  
+                ?_configuracion 0020                  _divisionEntera 0366                             l620 0369  
+                           l630 0387                             l622 036F                             l632 038E  
+                           l624 0371                             l640 035A                             l650 0337  
+                           l634 0390                             l626 037C                             l618 0366  
+                           l642 033F                             l652 033A                             l628 0381  
+                           l636 034F                             l644 0342                             l660 039E  
+                           l654 033B                             l638 0351                             l646 0343  
+                           l670 03C1                             l662 03A2                             l656 033C  
+                           l648 0347                             l680 03D6                             l672 03C6  
+                           l664 03AB                             l682 03D8                             l674 03CC  
+                           l666 03B7                             l658 0399                             l676 03CD  
+                           l668 03BC                             l684 03DB                             l678 03CE  
+                           l686 0332                             u120 036E                             u200 03C1  
+                           u121 036D                             u201 03C0                             u130 037B  
+                           u210 03D6                             u131 037A                             u211 03D5  
+                           u140 0387                             u220 03EF                             u141 0386  
+                           u221 03EE                             u150 0397                             u151 0396  
+                           u223 03EB                             u160 034D                             u161 034C  
+                           u170 039E                             u171 039D                             u180 03A2  
+                           u181 03A1                             u190 03BC                             u191 03BB  
+                          _main 0332                            btemp 005E                            start 0000  
+               leerDatos@espera 0025          __end_of_divisionEntera 0399                           ?_main 0020  
+                         status 0003                           wtemp0 005E                 __initialization 03F5  
+                  __end_of_main 0337                 ??_configuracion 0000                 ?_divisionEntera 0020  
+                        ??_main 0000         ??_parpadearLEDResultado 0020                          _TRISIO 0085  
+            divisionEntera@temp 0021               ?_mostrarResultado 0020              ??_mostrarResultado 0000  
+       __end_of__initialization 03FD                  __pcstackCOMMON 0000                    __pidataBANK0 0330  
+                _OPTION_REGbits 0081              __size_of_leerDatos 005C                      __pbssBANK0 0029  
+                    __pmaintext 0332                      _flagFlanco 0170                ??_divisionEntera 0020  
+             __end_of_leerDatos 03F5                         __ptext1 0399                         __ptext2 033F  
+                       __ptext3 034F                         __ptext4 0366                         __ptext5 0337  
+__size_of_parpadearLEDResultado 0017   __end_of_parpadearLEDResultado 0366            end_of_initialization 03FD  
+         __end_of_configuracion 033F       __size_of_mostrarResultado 0010                   __pbitbssBANK0 0170  
+           start_initialization 03F5                     __pdataBANK0 002C                  _tiempoParpadeo 002C  
+                     ___latbits 0000                   __pcstackBANK0 0020                       _leerDatos 0399  
+              _mostrarResultado 033F                        _GPIObits 0005                       _operando1 002B  
+                     _operando2 002A                       _resultado 0029                      ?_leerDatos 0020  
+         _parpadearLEDResultado 034F         __size_of_divisionEntera 0033          __size_of_configuracion 0008  
+                 __size_of_main 0005                     ??_leerDatos 0024          ?_parpadearLEDResultado 0020  
+                 _configuracion 0337        __end_of_mostrarResultado 034F  
